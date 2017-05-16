@@ -1,6 +1,6 @@
 require "resources/essentialmode/lib/MySQL"
 -- MySQL:open("IP", "databasname", "user", "password")
-MySQL:open("185.38.148.82", "envicto1_gta5", "envicto1_frazzle", "robotboy1")
+MySQL:open("ip", "db", "user", "pass")
 
 RegisterServerEvent("mm:spawn")
 AddEventHandler("mm:spawn", function()

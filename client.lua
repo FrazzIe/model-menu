@@ -22,6 +22,13 @@ AddEventHandler("mm:changemodel",function(model)
 	Notify("~r~Model loaded")	
 end)
 
+RegisterNetEvent("mm:changemodelspawn")
+AddEventHandler("mm:changemodelspawn",function(model)
+    changemodel(model,nil)
+	Notify("~r~Model loaded")
+	TriggerServerEvent("mm:spawn2")
+end)
+
 RegisterNetEvent("mm:firstspawn")
 AddEventHandler("mm:firstspawn",function()
 	Main() -- Menu to draw
@@ -41,7 +48,7 @@ function changemodel(model)
 
 	SetPlayerModel(PlayerId(), modelhashed)
 	local a = "" -- nil doesnt work
-	SetPedRandomComponentVariation(GetPlayerPed(-1), true)
+	SetPedComponentVariation(GetPlayerPed(-1), 7, 0, 0, 0)
 	SetModelAsNoLongerNeeded(modelhashed)
 end
 
@@ -66,6 +73,7 @@ function Main()
 	Notify("~g~Press F2 to open/close")
     options.menu_subtitle = "Categories"
     ClearMenu()
+	Menu.addButton("Accessories", "Accessories", nil)
     Menu.addButton("Male models", "MaleMenu", nil)
     Menu.addButton("Female Models", "FemaleMenu", nil)
     Menu.addButton("EMS Models","EMSMenu",nil)
@@ -1464,6 +1472,367 @@ function MPMenu2()
     Menu.addButton("Previous Page","MPMenu",nil)	
     Menu.addButton("Return","OtherMenu",nil)
 end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Accessories Menu
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+function Accessories()
+    options.menu_subtitle = "Accessories"
+    ClearMenu()
+    Menu.addButton("Hats", "HatChecker")
+    Menu.addButton("Glasses", "GlassesChecker")
+    Menu.addButton("Earings", "PercingChecker")
+    Menu.addButton("Masks (MP Models)", "MaskMenu")
+	Menu.addButton("Remove Accessories", "RemoveAccessories")
+    Menu.addButton("Return","Main",nil)
+end
+
+function RemoveAccessories()
+    options.menu_subtitle = "Accessories"
+    ClearMenu()
+    Menu.addButton("Remove hat", "riphat",nil)
+    Menu.addButton("Remove glasses", "ripglasses",nil)
+    Menu.addButton("Remove earrings", "ripearrings",nil)
+    Menu.addButton("Remove mask", "ripmask",nil)
+    Menu.addButton("Return","Accessories",nil)
+end
+
+function riphat()
+	ClearPedProp(GetPlayerPed(-1),0)
+end
+function ripglasses()
+	ClearPedProp(GetPlayerPed(-1),1)
+end
+function ripearrings()
+	ClearPedProp(GetPlayerPed(-1),2)
+end
+function ripmask()
+	local mask = 0
+	TriggerServerEvent("mm:removemask", mask)
+end
+RegisterNetEvent("mm:maskremove")  
+AddEventHandler("mm:maskremove",function(mask)
+    changemask(mask,nil)
+end)
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Mask Menu                     Page 1/9
+--Masks
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+function MaskMenu()
+	DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Masks                   Page 1 of 9"
+    ClearMenu()
+    Menu.addButton(acc.masks_pg1[Menu.buttonCount+1], "savemask", ass.masks_pg1[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg1[Menu.buttonCount+1], "savemask", ass.masks_pg1[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg1[Menu.buttonCount+1], "savemask", ass.masks_pg1[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg1[Menu.buttonCount+1], "savemask", ass.masks_pg1[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg1[Menu.buttonCount+1], "savemask", ass.masks_pg1[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg1[Menu.buttonCount+1], "savemask", ass.masks_pg1[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg1[Menu.buttonCount+1], "savemask", ass.masks_pg1[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg1[Menu.buttonCount+1], "savemask", ass.masks_pg1[Menu.buttonCount+1])
+    Menu.addButton("Next Page","MaskMenu2",nil)
+    Menu.addButton("Previous Page","MaskMenu9",nil)
+    Menu.addButton("Return","Accessories",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Mask Menu                     Page 2/9
+--Masks
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function MaskMenu2()
+	DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Masks                   Page 2 of 9"
+    ClearMenu()
+    Menu.addButton(acc.masks_pg2[Menu.buttonCount+1], "savemask", ass.masks_pg2[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg2[Menu.buttonCount+1], "savemask", ass.masks_pg2[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg2[Menu.buttonCount+1], "savemask", ass.masks_pg2[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg2[Menu.buttonCount+1], "savemask", ass.masks_pg2[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg2[Menu.buttonCount+1], "savemask", ass.masks_pg2[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg2[Menu.buttonCount+1], "savemask", ass.masks_pg2[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg2[Menu.buttonCount+1], "savemask", ass.masks_pg2[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg2[Menu.buttonCount+1], "savemask", ass.masks_pg2[Menu.buttonCount+1])
+    Menu.addButton("Next Page","MaskMenu3",nil)
+    Menu.addButton("Previous Page","MaskMenu",nil)
+    Menu.addButton("Return","Accessories",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Mask Menu                     Page 3/9
+--Masks
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function MaskMenu3()
+	DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Masks                   Page 3 of 9"
+    ClearMenu()
+    Menu.addButton(acc.masks_pg3[Menu.buttonCount+1], "savemask", ass.masks_pg3[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg3[Menu.buttonCount+1], "savemask", ass.masks_pg3[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg3[Menu.buttonCount+1], "savemask", ass.masks_pg3[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg3[Menu.buttonCount+1], "savemask", ass.masks_pg3[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg3[Menu.buttonCount+1], "savemask", ass.masks_pg3[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg3[Menu.buttonCount+1], "savemask", ass.masks_pg3[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg3[Menu.buttonCount+1], "savemask", ass.masks_pg3[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg3[Menu.buttonCount+1], "savemask", ass.masks_pg3[Menu.buttonCount+1])
+    Menu.addButton("Next Page","MaskMenu4",nil)
+    Menu.addButton("Previous Page","MaskMenu2",nil)
+    Menu.addButton("Return","Accessories",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Mask Menu                     Page 4/9
+--Masks
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function MaskMenu4()
+	DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Masks                   Page 4 of 9"
+    ClearMenu()
+    Menu.addButton(acc.masks_pg4[Menu.buttonCount+1], "savemask", ass.masks_pg4[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg4[Menu.buttonCount+1], "savemask", ass.masks_pg4[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg4[Menu.buttonCount+1], "savemask", ass.masks_pg4[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg4[Menu.buttonCount+1], "savemask", ass.masks_pg4[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg4[Menu.buttonCount+1], "savemask", ass.masks_pg4[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg4[Menu.buttonCount+1], "savemask", ass.masks_pg4[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg4[Menu.buttonCount+1], "savemask", ass.masks_pg4[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg4[Menu.buttonCount+1], "savemask", ass.masks_pg4[Menu.buttonCount+1])
+    Menu.addButton("Next Page","MaskMenu5",nil)
+    Menu.addButton("Previous Page","MaskMenu3",nil)
+    Menu.addButton("Return","Accessories",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Mask Menu                     Page 5/9
+--Masks
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function MaskMenu5()
+	DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Masks                   Page 5 of 9"
+    ClearMenu()
+    Menu.addButton(acc.masks_pg5[Menu.buttonCount+1], "savemask", ass.masks_pg5[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg5[Menu.buttonCount+1], "savemask", ass.masks_pg5[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg5[Menu.buttonCount+1], "savemask", ass.masks_pg5[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg5[Menu.buttonCount+1], "savemask", ass.masks_pg5[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg5[Menu.buttonCount+1], "savemask", ass.masks_pg5[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg5[Menu.buttonCount+1], "savemask", ass.masks_pg5[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg5[Menu.buttonCount+1], "savemask", ass.masks_pg5[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg5[Menu.buttonCount+1], "savemask", ass.masks_pg5[Menu.buttonCount+1])
+    Menu.addButton("Next Page","MaskMenu6",nil)
+    Menu.addButton("Previous Page","MaskMenu4",nil)
+    Menu.addButton("Return","Accessories",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Mask Menu                     Page 6/9
+--Masks
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function MaskMenu6()
+	DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Masks                   Page 6 of 9"
+    ClearMenu()
+    Menu.addButton(acc.masks_pg6[Menu.buttonCount+1], "savemask", ass.masks_pg6[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg6[Menu.buttonCount+1], "savemask", ass.masks_pg6[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg6[Menu.buttonCount+1], "savemask", ass.masks_pg6[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg6[Menu.buttonCount+1], "savemask", ass.masks_pg6[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg6[Menu.buttonCount+1], "savemask", ass.masks_pg6[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg6[Menu.buttonCount+1], "savemask", ass.masks_pg6[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg6[Menu.buttonCount+1], "savemask", ass.masks_pg6[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg6[Menu.buttonCount+1], "savemask", ass.masks_pg6[Menu.buttonCount+1])
+    Menu.addButton("Next Page","MaskMenu7",nil)
+    Menu.addButton("Previous Page","MaskMenu6",nil)
+    Menu.addButton("Return","Accessories",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Mask Menu                     Page 7/9
+--Masks
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function MaskMenu7()
+	DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Masks                   Page 7 of 9"
+    ClearMenu()
+    Menu.addButton(acc.masks_pg7[Menu.buttonCount+1], "savemask", ass.masks_pg7[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg7[Menu.buttonCount+1], "savemask", ass.masks_pg7[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg7[Menu.buttonCount+1], "savemask", ass.masks_pg7[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg7[Menu.buttonCount+1], "savemask", ass.masks_pg7[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg7[Menu.buttonCount+1], "savemask", ass.masks_pg7[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg7[Menu.buttonCount+1], "savemask", ass.masks_pg7[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg7[Menu.buttonCount+1], "savemask", ass.masks_pg7[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg7[Menu.buttonCount+1], "savemask", ass.masks_pg7[Menu.buttonCount+1])
+    Menu.addButton("Next Page","MaskMenu8",nil)
+    Menu.addButton("Previous Page","MaskMenu6",nil)
+    Menu.addButton("Return","Accessories",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Mask Menu                     Page 8/9
+--Masks
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function MaskMenu8()
+	DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Masks                   Page 8 of 9"
+    ClearMenu()
+    Menu.addButton(acc.masks_pg8[Menu.buttonCount+1], "savemask", ass.masks_pg8[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg8[Menu.buttonCount+1], "savemask", ass.masks_pg8[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg8[Menu.buttonCount+1], "savemask", ass.masks_pg8[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg8[Menu.buttonCount+1], "savemask", ass.masks_pg8[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg8[Menu.buttonCount+1], "savemask", ass.masks_pg8[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg8[Menu.buttonCount+1], "savemask", ass.masks_pg8[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg8[Menu.buttonCount+1], "savemask", ass.masks_pg8[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg8[Menu.buttonCount+1], "savemask", ass.masks_pg8[Menu.buttonCount+1])
+    Menu.addButton("Next Page","MaskMenu9",nil)
+    Menu.addButton("Previous Page","MaskMenu7",nil)
+    Menu.addButton("Return","Accessories",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Mask Menu                     Page 9/9
+--Masks
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function MaskMenu9()
+	DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Masks                   Page 9 of 9"
+    ClearMenu()
+    Menu.addButton(acc.masks_pg9[Menu.buttonCount+1], "savemask", ass.masks_pg9[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg9[Menu.buttonCount+1], "savemask", ass.masks_pg9[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg9[Menu.buttonCount+1], "savemask", ass.masks_pg9[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg9[Menu.buttonCount+1], "savemask", ass.masks_pg9[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg9[Menu.buttonCount+1], "savemask", ass.masks_pg9[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg9[Menu.buttonCount+1], "savemask", ass.masks_pg9[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg9[Menu.buttonCount+1], "savemask", ass.masks_pg9[Menu.buttonCount+1])
+    Menu.addButton(acc.masks_pg9[Menu.buttonCount+1], "savemask", ass.masks_pg9[Menu.buttonCount+1])
+    Menu.addButton("Next Page","MaskMenu",nil)
+    Menu.addButton("Previous Page","MaskMenu8",nil)
+    Menu.addButton("Return","Accessories",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Mask Menu                     Page 1/4
+--Textures
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function maskTextures()
+	DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Textures                Page 1 of 4"
+    ClearMenu()
+    Menu.addButton(ass.txt_pg1[Menu.buttonCount+1], "savetxt", ass.txt_pg1[Menu.buttonCount+1])
+    Menu.addButton(ass.txt_pg1[Menu.buttonCount+1], "savetxt", ass.txt_pg1[Menu.buttonCount+1])
+    Menu.addButton(ass.txt_pg1[Menu.buttonCount+1], "savetxt", ass.txt_pg1[Menu.buttonCount+1])
+    Menu.addButton(ass.txt_pg1[Menu.buttonCount+1], "savetxt", ass.txt_pg1[Menu.buttonCount+1])
+    Menu.addButton(ass.txt_pg1[Menu.buttonCount+1], "savetxt", ass.txt_pg1[Menu.buttonCount+1])
+    Menu.addButton(ass.txt_pg1[Menu.buttonCount+1], "savetxt", ass.txt_pg1[Menu.buttonCount+1])
+    Menu.addButton(ass.txt_pg1[Menu.buttonCount+1], "savetxt", ass.txt_pg1[Menu.buttonCount+1])
+    Menu.addButton(ass.txt_pg1[Menu.buttonCount+1], "savetxt", ass.txt_pg1[Menu.buttonCount+1])
+    Menu.addButton("Next Page","maskTextures2",nil)
+    Menu.addButton("Previous Page","maskTextures4",nil)
+    Menu.addButton("Return","MaskMenu",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Mask Menu                     Page 2/4
+--Textures
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function maskTextures2()
+	DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Textures                Page 2 of 4"
+    ClearMenu()
+    Menu.addButton(ass.txt_pg2[Menu.buttonCount+1], "savetxt", ass.txt_pg2[Menu.buttonCount+1])
+    Menu.addButton(ass.txt_pg2[Menu.buttonCount+1], "savetxt", ass.txt_pg2[Menu.buttonCount+1])
+    Menu.addButton(ass.txt_pg2[Menu.buttonCount+1], "savetxt", ass.txt_pg2[Menu.buttonCount+1])
+    Menu.addButton(ass.txt_pg2[Menu.buttonCount+1], "savetxt", ass.txt_pg2[Menu.buttonCount+1])
+    Menu.addButton(ass.txt_pg2[Menu.buttonCount+1], "savetxt", ass.txt_pg2[Menu.buttonCount+1])
+    Menu.addButton(ass.txt_pg2[Menu.buttonCount+1], "savetxt", ass.txt_pg2[Menu.buttonCount+1])
+    Menu.addButton(ass.txt_pg2[Menu.buttonCount+1], "savetxt", ass.txt_pg2[Menu.buttonCount+1])
+    Menu.addButton(ass.txt_pg2[Menu.buttonCount+1], "savetxt", ass.txt_pg2[Menu.buttonCount+1])
+    Menu.addButton("Next Page","maskTextures3",nil)
+    Menu.addButton("Previous Page","maskTextures",nil)
+    Menu.addButton("Return","MaskMenu",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Mask Menu                     Page 3/4
+--Textures
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function maskTextures3()
+	DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Textures                Page 3 of 4"
+    ClearMenu()
+    Menu.addButton(ass.txt_pg3[Menu.buttonCount+1], "savetxt", ass.txt_pg3[Menu.buttonCount+1])
+    Menu.addButton(ass.txt_pg3[Menu.buttonCount+1], "savetxt", ass.txt_pg3[Menu.buttonCount+1])
+    Menu.addButton(ass.txt_pg3[Menu.buttonCount+1], "savetxt", ass.txt_pg3[Menu.buttonCount+1])
+    Menu.addButton(ass.txt_pg3[Menu.buttonCount+1], "savetxt", ass.txt_pg3[Menu.buttonCount+1])
+    Menu.addButton(ass.txt_pg3[Menu.buttonCount+1], "savetxt", ass.txt_pg3[Menu.buttonCount+1])
+    Menu.addButton(ass.txt_pg3[Menu.buttonCount+1], "savetxt", ass.txt_pg3[Menu.buttonCount+1])
+    Menu.addButton(ass.txt_pg3[Menu.buttonCount+1], "savetxt", ass.txt_pg3[Menu.buttonCount+1])
+    Menu.addButton(ass.txt_pg3[Menu.buttonCount+1], "savetxt", ass.txt_pg3[Menu.buttonCount+1])
+    Menu.addButton("Next Page","maskTextures4",nil)
+    Menu.addButton("Previous Page","maskTextures2",nil)
+    Menu.addButton("Return","MaskMenu",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Mask Menu                     Page 4/4
+--Textures
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function maskTextures4()
+	DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Textures                Page 4 of 4"
+    ClearMenu()
+    Menu.addButton(ass.txt_pg4[Menu.buttonCount+1], "savetxt", ass.txt_pg4[Menu.buttonCount+1])
+    Menu.addButton(ass.txt_pg4[Menu.buttonCount+1], "savetxt", ass.txt_pg4[Menu.buttonCount+1])
+    Menu.addButton("Next Page","maskTextures",nil)
+    Menu.addButton("Previous Page","maskTextures3",nil)
+    Menu.addButton("Return","MaskMenu",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Mask Menu             --Credit to izio38 for helping me with one of my annoying errors :)
+--Functions
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function savemask(mask) --Sets Players mask in database
+	TriggerServerEvent("mm:savemask", mask)
+end
+
+function changemask(mask) --Sets Players mask
+	SetPedComponentVariation(GetPlayerPed(-1), 1, mask, 0, 0)
+end
+
+RegisterNetEvent("mm:changemask")  
+AddEventHandler("mm:changemask",function(mask)
+    changemask(mask,nil)
+	maskTextures()
+end)
+
+RegisterNetEvent("mm:changemaskspawn") --Sets mask and texture when spawned
+AddEventHandler("mm:changemaskspawn",function(maskstuff)
+    SetPedComponentVariation(GetPlayerPed(-1), 1, tonumber(maskstuff.mask), tonumber(maskstuff.mask_txt), 0)
+end)
+
+function savetxt(mask_txt) --Sets mask texture in database
+	TriggerServerEvent("mm:savemask_txt", mask_txt)
+end
+
+
+
+RegisterNetEvent("mm:changemask_txt") -- Sets mask texture
+AddEventHandler("mm:changemask_txt",function(maskstuff)
+	--Citizen.Trace(maskstuff.mask)
+	--Citizen.Trace(maskstuff.mask_txt)
+	SetPedComponentVariation(GetPlayerPed(-1), 1, tonumber(maskstuff.mask), tonumber(maskstuff.mask_txt), 0)
+end)
+
+--Credits to JcPires for this crap \/\/\/
+function HatChecker()
+	TriggerServerEvent("mm:wearHat")
+end
+
+function PercingChecker()
+    TriggerServerEvent("mm:wearPercing")
+end
+
+function GlassesChecker()
+    TriggerServerEvent("mm:wearGlasses")
+end
+
+
+RegisterNetEvent("mm:Hatwear")
+AddEventHandler("mm:Hatwear", function(item)
+    SetPedPropIndex(GetPlayerPed(-1), 0, item.helmet,item.helmet_txt, 0)
+end)
+
+RegisterNetEvent("mm:Percingwear")
+AddEventHandler("mm:Percingwear", function(item)
+    SetPedPropIndex(GetPlayerPed(-1), 2, item.percing,item.percing_txt, 0)
+end)
+
+RegisterNetEvent("mm:Glasseswear")
+AddEventHandler("mm:Glasseswear", function(item)
+    SetPedPropIndex(GetPlayerPed(-1), 1, item.glasses,item.glasses_txt, 0)
+end)
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Press F2 to open menu

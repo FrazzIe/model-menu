@@ -7,16 +7,20 @@ AddEventHandler("mm:spawn", function()
 	TriggerEvent("es:getPlayerFromId", source, function(target)
 		local executed_query = MySQL:executeQuery("SELECT identifier FROM modelmenu WHERE identifier = '@name'", {['@name'] = target.identifier})
 		local result = MySQL:getResults(executed_query, {'identifier'}, "identifier")
-		local mpmodel = getModelIsMP(target.identifier)
+
 		if(result[1] == nil) then
 			local executed_query2 = MySQL:executeQuery("INSERT INTO modelmenu(identifier) VALUES ('@name')",{['@name']= target.identifier})
 			TriggerClientEvent("mm:firstspawn", source)
-		elseif(mpmodel == 0) then
+		else
+			local mpmodel = getModelIsMP(target.identifier)
+			if(mpmodel == 0) then
 			local model = getmodels(target.identifier)
 			TriggerClientEvent("mm:changemodelspawn", source, model)
-		elseif(mpmodel == 1) then
+			end
+			if(mpmodel == 1) then
 			local model = getmodels(target.identifier)
 			TriggerClientEvent("mm:changempmodelspawn", source, model)
+			end
 		end
 	end)
 end)

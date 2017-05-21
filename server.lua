@@ -7,12 +7,16 @@ AddEventHandler("mm:spawn", function()
 	TriggerEvent("es:getPlayerFromId", source, function(target)
 		local executed_query = MySQL:executeQuery("SELECT identifier FROM modelmenu WHERE identifier = '@name'", {['@name'] = target.identifier})
 		local result = MySQL:getResults(executed_query, {'identifier'}, "identifier")
+		local mpmodel = getModelIsMP(target.identifier)
 		if(result[1] == nil) then
 			local executed_query2 = MySQL:executeQuery("INSERT INTO modelmenu(identifier) VALUES ('@name')",{['@name']= target.identifier})
 			TriggerClientEvent("mm:firstspawn", source)
-		else
+		elseif(mpmodel == 0) then
 			local model = getmodels(target.identifier)
 			TriggerClientEvent("mm:changemodelspawn", source, model)
+		elseif(mpmodel == 1) then
+			local model = getmodels(target.identifier)
+			TriggerClientEvent("mm:changempmodelspawn", source, model)
 		end
 	end)
 end)
@@ -27,6 +31,13 @@ AddEventHandler("mm:spawn2", function()
 		TriggerClientEvent("mm:changemaskspawn", source, maskstuff)
 	end)
 end)
+
+function getModelIsMP(identifier)
+	local executed_query = MySQL:executeQuery("SELECT mpmodel FROM modelmenu WHERE identifier = '@name'", {['@name'] = identifier})
+	local result = MySQL:getResults(executed_query, {'mpmodel'})
+    local mpmodel = result[1].mpmodel
+	return mpmodel
+end
 
 function getmodels(identifier)
 	local executed_query = MySQL:executeQuery("SELECT model FROM modelmenu WHERE identifier = '@name'", {['@name'] = identifier})
@@ -49,9 +60,25 @@ function getmask_txt(identifier)
 	return mask_txt
 end
 
+RegisterServerEvent("mm:savempmodel")
+AddEventHandler("mm:savempmodel",function(model)
+	TriggerEvent('es:getPlayerFromId', source, function(target)
+		local executed_query_mp = MySQL:executeQuery("UPDATE modelmenu SET mpmodel = 1 WHERE identifier='@user'",{['@user']= target.identifier})
+		local executed_query = MySQL:executeQuery("UPDATE modelmenu SET model='@model' WHERE identifier='@user'",{['@model']= model,['@user']= target.identifier})
+		local executed_query2 = MySQL:executeQuery("SELECT identifier FROM modelmenu WHERE identifier='@user'",{['@user']= target.identifier})
+		local result = MySQL:getResults(executed_query2, {'identifier'}, "identifier")
+		if result[1].identifier ~= nil then
+			TriggerClientEvent("mm:changempmodel", source, model)
+		else
+			TriggerClientEvent("mm:changempmodel", source, model)
+		end
+	end)
+end)
+
 RegisterServerEvent("mm:savemodel")
 AddEventHandler("mm:savemodel",function(model)
 	TriggerEvent('es:getPlayerFromId', source, function(target)
+		local executed_query_mp = MySQL:executeQuery("UPDATE modelmenu SET mpmodel = 0 WHERE identifier='@user'",{['@user']= target.identifier})
 		local executed_query = MySQL:executeQuery("UPDATE modelmenu SET model='@model' WHERE identifier='@user'",{['@model']= model,['@user']= target.identifier})
 		local executed_query2 = MySQL:executeQuery("SELECT identifier FROM modelmenu WHERE identifier='@user'",{['@user']= target.identifier})
 		local result = MySQL:getResults(executed_query2, {'identifier'}, "identifier")

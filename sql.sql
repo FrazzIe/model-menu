@@ -9,6 +9,6 @@ CREATE TABLE IF NOT EXISTS `modelmenu` (
   `helmet` int(11) NOT NULL DEFAULT '1',
   `helmet_txt` int(11) NOT NULL DEFAULT '1',
   `mask` int(11) NOT NULL DEFAULT '0',
-  `mask_txt` int(11) NOT NULL DEFAULT '0'
+  `mask_txt` int(11) NOT NULL DEFAULT '0',
   `mpmodel` int NOT NULL DEFAULT '0'
  ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

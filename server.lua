@@ -1,6 +1,6 @@
 require "resources/essentialmode/lib/MySQL"
 -- MySQL:open("IP", "databasname", "user", "password")
-MySQL:open("", "", "", "")
+MySQL:open("185.38.148.82", "envicto1_gta5", "envicto1_frazdaz", "wattf3004")
 
 RegisterServerEvent("mm:spawn")
 AddEventHandler("mm:spawn", function()
@@ -28,11 +28,11 @@ end)
 RegisterServerEvent("mm:spawn2")
 AddEventHandler("mm:spawn2", function()
 	TriggerEvent("es:getPlayerFromId", source, function(target)
-		local maskstuff = {
+		local componentstuff = {
 		mask = getmask(target.identifier),
 		mask_txt = getmask_txt(target.identifier)
 		}
-		TriggerClientEvent("mm:changemaskspawn", source, maskstuff)
+		TriggerClientEvent("mm:change_components_spawn", source, componentstuff)
 	end)
 end)
 
@@ -62,6 +62,34 @@ function getmask_txt(identifier)
 	local result = MySQL:getResults(executed_query, {'mask_txt'})
     local mask_txt = result[1].mask_txt
 	return mask_txt
+end
+
+function gethair(identifier)
+	local executed_query = MySQL:executeQuery("SELECT hair FROM modelmenu WHERE identifier = '@name'", {['@name'] = identifier})
+	local result = MySQL:getResults(executed_query, {'hair'})
+    local hair = result[1].hair
+	return hair
+end
+
+function gethcolour(identifier)
+	local executed_query = MySQL:executeQuery("SELECT hair_colour FROM modelmenu WHERE identifier = '@name'", {['@name'] = identifier})
+	local result = MySQL:getResults(executed_query, {'hair_colour'})
+    local hcolour = result[1].hair_colour
+	return hcolour
+end
+
+function getshirt(identifier)
+	local executed_query = MySQL:executeQuery("SELECT shirt FROM modelmenu WHERE identifier = '@name'", {['@name'] = identifier})
+	local result = MySQL:getResults(executed_query, {'shirt'})
+    local shirt = result[1].shirt
+	return shirt
+end
+
+function getshirt_txt(identifier)
+	local executed_query = MySQL:executeQuery("SELECT shirt_txt FROM modelmenu WHERE identifier = '@name'", {['@name'] = identifier})
+	local result = MySQL:getResults(executed_query, {'shirt_txt'})
+    local shirt_txt = result[1].shirt_txt
+	return shirt_txt
 end
 
 RegisterServerEvent("mm:savempmodel")
@@ -140,6 +168,87 @@ AddEventHandler("mm:savemask_txt",function(mask_txt)
 			TriggerClientEvent("mm:changemask_txt", source, maskstuff)
 		else
 			TriggerClientEvent("mm:changemask_txt", source, maskstuff)
+		end
+	end)
+end)
+
+RegisterServerEvent("mm:savehead")
+AddEventHandler("mm:savehead",function(head)
+	TriggerEvent('es:getPlayerFromId', source, function(target)
+		local executed_query = MySQL:executeQuery("UPDATE modelmenu SET head='@head' WHERE identifier='@user'",{['@head']= head,['@user']= target.identifier})
+		local executed_query2 = MySQL:executeQuery("SELECT identifier FROM modelmenu WHERE identifier='@user'",{['@user']= target.identifier})
+		local result = MySQL:getResults(executed_query2, {'identifier'}, "identifier")
+		if result[1].identifier ~= nil then
+			TriggerClientEvent("mm:changehead", source, tonumber(head))
+		else
+			TriggerClientEvent("mm:changehead", source, tonumber(head))
+		end
+	end)
+end)
+
+RegisterServerEvent("mm:savehair")
+AddEventHandler("mm:savehair",function(hair)
+	TriggerEvent('es:getPlayerFromId', source, function(target)
+		local executed_query = MySQL:executeQuery("UPDATE modelmenu SET hair='@hair' WHERE identifier='@user'",{['@hair']= hair,['@user']= target.identifier})
+		local executed_query2 = MySQL:executeQuery("SELECT identifier FROM modelmenu WHERE identifier='@user'",{['@user']= target.identifier})
+		local result = MySQL:getResults(executed_query2, {'identifier'}, "identifier")
+		if result[1].identifier ~= nil then
+			print("hair: "hair)
+			TriggerClientEvent("mm:changehair", source, tonumber(hair))
+		else
+			TriggerClientEvent("mm:changehair", source, tonumber(hair))
+		end
+	end)
+end)
+
+RegisterServerEvent("mm:savehcolour")
+AddEventHandler("mm:savehcolour",function(hcolour)
+	TriggerEvent('es:getPlayerFromId', source, function(target)
+		local executed_query = MySQL:executeQuery("UPDATE modelmenu SET hair_colour='@hcolour' WHERE identifier='@user'",{['@hcolour']= hcolour,['@user']= target.identifier})
+		local executed_query2 = MySQL:executeQuery("SELECT identifier FROM modelmenu WHERE identifier='@user'",{['@user']= target.identifier})
+		local result = MySQL:getResults(executed_query2, {'identifier'}, "identifier")
+		local hairstuff = {
+		hair = gethair(target.identifier),
+		hcolour = gethcolour(target.identifier)
+		}
+		print(hairstuff.hair)
+		print(hairstuff.hcolour)
+		if result[1].identifier ~= nil then
+			TriggerClientEvent("mm:changehcolour", source, hairstuff)
+		else
+			TriggerClientEvent("mm:changehcolour", source, hairstuff)
+		end
+	end)
+end)
+
+RegisterServerEvent("mm:saveshirt")
+AddEventHandler("mm:saveshirt",function(shirt)
+	TriggerEvent('es:getPlayerFromId', source, function(target)
+		local executed_query = MySQL:executeQuery("UPDATE modelmenu SET shirt='@shirt' WHERE identifier='@user'",{['@shirt']= shirt,['@user']= target.identifier})
+		local executed_query2 = MySQL:executeQuery("SELECT identifier FROM modelmenu WHERE identifier='@user'",{['@user']= target.identifier})
+		local result = MySQL:getResults(executed_query2, {'identifier'}, "identifier")
+		if result[1].identifier ~= nil then
+			TriggerClientEvent("mm:changeshirt", source, tonumber(shirt))
+		else
+			TriggerClientEvent("mm:changeshirt", source, tonumber(shirt))
+		end
+	end)
+end)
+
+RegisterServerEvent("mm:saveshirt_txt")
+AddEventHandler("mm:saveshirt_txt",function(shirt_txt)
+	TriggerEvent('es:getPlayerFromId', source, function(target)
+		local executed_query = MySQL:executeQuery("UPDATE modelmenu SET shirt_txt='@shirt_txt' WHERE identifier='@user'",{['@shirt_txt']= shirt_txt,['@user']= target.identifier})
+		local executed_query2 = MySQL:executeQuery("SELECT identifier FROM modelmenu WHERE identifier='@user'",{['@user']= target.identifier})
+		local result = MySQL:getResults(executed_query2, {'identifier'}, "identifier")
+		local shirtstuff = {
+		shirt = getshirt(target.identifier),
+		shirt_txt = getshirt_txt(target.identifier)
+		}
+		if result[1].identifier ~= nil then
+			TriggerClientEvent("mm:changeshirt_txt", source, shirtstuff)
+		else
+			TriggerClientEvent("mm:changeshirt_txt", source, shirtstuff)
 		end
 	end)
 end)

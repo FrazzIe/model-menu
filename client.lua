@@ -22,10 +22,23 @@ AddEventHandler("mm:changemodel",function(model)
 	Notify("~r~Model loaded")	
 end)
 
+RegisterNetEvent("mm:changempmodel")
+AddEventHandler("mm:changempmodel",function(model)
+    changempmodel(model,nil)
+	Notify("~r~MP Model loaded")
+end)
+
 RegisterNetEvent("mm:changemodelspawn")
 AddEventHandler("mm:changemodelspawn",function(model)
     changemodel(model,nil)
 	Notify("~r~Model loaded")
+	TriggerServerEvent("mm:spawn2")
+end)
+
+RegisterNetEvent("mm:changempmodelspawn")
+AddEventHandler("mm:changempmodelspawn",function(model)
+    changempmodel(model,nil)
+	Notify("~r~MP Model loaded")
 	TriggerServerEvent("mm:spawn2")
 end)
 
@@ -47,8 +60,27 @@ function changemodel(model)
 	end
 
 	SetPlayerModel(PlayerId(), modelhashed)
+	SetPedRandomComponentVariation(GetPlayerPed(-1), true)
+	local a = "" -- nil doesnt work
+	SetModelAsNoLongerNeeded(modelhashed)
+end
+
+function changempmodel(model)
+	
+	local modelhashed = GetHashKey(model)
+
+	RequestModel(modelhashed)
+	while not HasModelLoaded(modelhashed) do 
+	    RequestModel(modelhashed)
+	    Citizen.Wait(0)
+	end
+
+	SetPlayerModel(PlayerId(), modelhashed)
 	local a = "" -- nil doesnt work
 	SetPedComponentVariation(GetPlayerPed(-1), 7, 0, 0, 0)
+	if model == 'mp_f_freemode_01' then
+		SetPedComponentVariation(GetPlayerPed(-1), 0, 34, 0, 0)
+	end
 	SetModelAsNoLongerNeeded(modelhashed)
 end
 
@@ -1442,13 +1474,13 @@ function MPMenu()
 	DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
     options.menu_subtitle = "MP Models               Page 1 of 2"
     ClearMenu()
-    Menu.addButton(mp_models[Menu.buttonCount+1], "savemodel", mp_models[Menu.buttonCount+1])
-    Menu.addButton(mp_models[Menu.buttonCount+1], "savemodel", mp_models[Menu.buttonCount+1])
-    Menu.addButton(mp_models[Menu.buttonCount+1], "savemodel", mp_models[Menu.buttonCount+1])
-    Menu.addButton(mp_models[Menu.buttonCount+1], "savemodel", mp_models[Menu.buttonCount+1])
-    Menu.addButton(mp_models[Menu.buttonCount+1], "savemodel", mp_models[Menu.buttonCount+1])
-    Menu.addButton(mp_models[Menu.buttonCount+1], "savemodel", mp_models[Menu.buttonCount+1])
-    Menu.addButton(mp_models[Menu.buttonCount+1], "savemodel", mp_models[Menu.buttonCount+1])
+    Menu.addButton(mp_models[Menu.buttonCount+1], "savempmodel", mp_models[Menu.buttonCount+1])
+    Menu.addButton(mp_models[Menu.buttonCount+1], "savempmodel", mp_models[Menu.buttonCount+1])
+    Menu.addButton(mp_models[Menu.buttonCount+1], "savempmodel", mp_models[Menu.buttonCount+1])
+    Menu.addButton(mp_models[Menu.buttonCount+1], "savempmodel", mp_models[Menu.buttonCount+1])
+    Menu.addButton(mp_models[Menu.buttonCount+1], "savempmodel", mp_models[Menu.buttonCount+1])
+    Menu.addButton(mp_models[Menu.buttonCount+1], "savempmodel", mp_models[Menu.buttonCount+1])
+    Menu.addButton(mp_models[Menu.buttonCount+1], "savempmodel", mp_models[Menu.buttonCount+1])
     Menu.addButton("Next Page","MPMenu2",nil)
     Menu.addButton("Previous Page","MPMenu2",nil)	
     Menu.addButton("Return","OtherMenu",nil)
@@ -1461,13 +1493,13 @@ function MPMenu2()
 	DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
     options.menu_subtitle = "MP Models               Page 2 of 2"
     ClearMenu()
-    Menu.addButton(mp_models2[Menu.buttonCount+1], "savemodel", mp_models2[Menu.buttonCount+1])
-    Menu.addButton(mp_models2[Menu.buttonCount+1], "savemodel", mp_models2[Menu.buttonCount+1])
-    Menu.addButton(mp_models2[Menu.buttonCount+1], "savemodel", mp_models2[Menu.buttonCount+1])
-    Menu.addButton(mp_models2[Menu.buttonCount+1], "savemodel", mp_models2[Menu.buttonCount+1])
-    Menu.addButton(mp_models2[Menu.buttonCount+1], "savemodel", mp_models2[Menu.buttonCount+1])
-    Menu.addButton(mp_models2[Menu.buttonCount+1], "savemodel", mp_models2[Menu.buttonCount+1])
-    Menu.addButton(mp_models2[Menu.buttonCount+1], "savemodel", mp_models2[Menu.buttonCount+1])
+    Menu.addButton(mp_models2[Menu.buttonCount+1], "savempmodel", mp_models2[Menu.buttonCount+1])
+    Menu.addButton(mp_models2[Menu.buttonCount+1], "savempmodel", mp_models2[Menu.buttonCount+1])
+    Menu.addButton(mp_models2[Menu.buttonCount+1], "savempmodel", mp_models2[Menu.buttonCount+1])
+    Menu.addButton(mp_models2[Menu.buttonCount+1], "savempmodel", mp_models2[Menu.buttonCount+1])
+    Menu.addButton(mp_models2[Menu.buttonCount+1], "savempmodel", mp_models2[Menu.buttonCount+1])
+    Menu.addButton(mp_models2[Menu.buttonCount+1], "savempmodel", mp_models2[Menu.buttonCount+1])
+    Menu.addButton(mp_models2[Menu.buttonCount+1], "savempmodel", mp_models2[Menu.buttonCount+1])
     Menu.addButton("Next Page","MPMenu",nil)
     Menu.addButton("Previous Page","MPMenu",nil)	
     Menu.addButton("Return","OtherMenu",nil)

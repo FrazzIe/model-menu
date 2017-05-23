@@ -157,7 +157,7 @@ end)
 
 function Main()
     DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
-	Notify("~g~Press E to open/close")
+	Notify("~g~Press F2 to open/close")
     options.menu_title = "Model Menu"
     options.menu_subtitle = "Categories"
     ClearMenu()
@@ -4424,57 +4424,21 @@ AddEventHandler("mm:changearmour_txt",function(armourstuff)
     SetPedComponentVariation(GetPlayerPed(-1), 9, tonumber(armourstuff.armour), tonumber(armourstuff.armour_txt), 0)
 end)
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---Press E to open/close menu in the red marker
+--Press F2 to open menu
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-local emplacement = {
-    {name="Clothing Store", id=73, x=1932.76989746094, y=3727.73510742188, z=32.8444557189941},
-    {name="Clothing Store", id=73, x=1693.26, y=4822.27, z=42.06},
-    {name="Clothing Store", id=73, x=125.83, y=-223.16, z=54.55},
-    {name="Clothing Store", id=73, x=-710.16, y=-153.26, z=37.41},
-    {name="Clothing Store", id=73, x=-821.69, y=-1073.90, z=11.32},
-    {name="Clothing Store", id=73, x=-1192.81, y=-768.24, z=17.31},
-    {name="Clothing Store", id=73, x=4.25, y=6512.88, z=31.87},
-}
-incircle = false
 Citizen.CreateThread(function()
-    for _, item in pairs(emplacement) do
-      item.blip = AddBlipForCoord(item.x, item.y, item.z)
-      SetBlipSprite(item.blip, item.id)
-      SetBlipColour(item.blip, item.colour)
-      SetBlipAsShortRange(item.blip, true)
-      BeginTextCommandSetBlipName("STRING")
-      AddTextComponentString(item.name)
-      EndTextCommandSetBlipName(item.blip)
-    end
     while true do
         Citizen.Wait(0)
-        local pos = GetEntityCoords(GetPlayerPed(-1), true)
-        for k,v in ipairs(emplacement) do
-            if(Vdist(pos.x, pos.y, pos.z, v.x, v.y, v.z) < 15.0)then
-                DrawMarker(1, v.x, v.y, v.z - 1, 0, 0, 0, 0, 0, 0, 1.0001, 1.0001, 1.5001, 1555, 0, 0,165, 0, 0, 0,0)
-                if(Vdist(pos.x, pos.y, pos.z, v.x, v.y, v.z) < 1.0)then
-                    if (incircle == false) then
-                        DisplayHelpText("Press ~INPUT_CONTEXT~ to customise your character.")
-                    end
-                    incircle = true
-                    if IsControlJustReleased(1, 51) then -- INPUT_CELLPHONE_DOWN
-                        Main() -- Menu to draw
-                        Menu.hidden = not Menu.hidden -- Hide/Show the menu
-                        shirt_help = false
-                        model_info = false
-                        texture_help = false
-                    end
-                    Menu.renderGUI(options) -- Draw menu on each tick if Menu.hidden = false
-                elseif(Vdist(pos.x, pos.y, pos.z, v.x, v.y, v.z) > 1.0)then
-                    incircle = false
-                end
-            end
+        if IsControlJustPressed(1, 289) then
+            Main() -- Menu to draw
+            Menu.hidden = not Menu.hidden -- Hide/Show the menu
+            shirt_help = false
+            model_info = false
+            texture_help = false
         end
-    end
+        Menu.renderGUI(options) -- Draw menu on each tick if Menu.hidden = false
+	end
 end)
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---Help messages
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Citizen.CreateThread(function()
     while true do
         if shirt_help then

@@ -71,21 +71,6 @@ AddEventHandler("mm:firstspawn",function()
     Notify("~g~Change your character at any clothing store!")
 end)
 
-RegisterNetEvent("mm:change_components_spawn") --Sets mask and texture when spawned
-AddEventHandler("mm:change_components_spawn",function(componentstuff)
-    SetPedComponentVariation(GetPlayerPed(-1), 0, tonumber(componentstuff.head), 0, 0) 
-    SetPedComponentVariation(GetPlayerPed(-1), 1, tonumber(componentstuff.mask), tonumber(componentstuff.mask_txt), 0)
-	SetPedComponentVariation(GetPlayerPed(-1), 2, tonumber(componentstuff.hair), tonumber(componentstuff.hcolour), 0)
-    SetPedComponentVariation(GetPlayerPed(-1), 6, tonumber(componentstuff.shoe), tonumber(componentstuff.shoe_txt), 0)
-    SetPedComponentVariation(GetPlayerPed(-1), 11, 0, 240, 0)
-    SetPedComponentVariation(GetPlayerPed(-1), 8, 0, 240, 0)
-    SetPedComponentVariation(GetPlayerPed(-1), 11, tonumber(componentstuff.shirt), tonumber(componentstuff.shirt_txt), 0)
-    SetPedComponentVariation(GetPlayerPed(-1), 3, tonumber(componentstuff.hand), 0, 0)
-    SetPedComponentVariation(GetPlayerPed(-1), 4, tonumber(componentstuff.pants), tonumber(componentstuff.pants_txt), 0)    
-    SetPedComponentVariation(GetPlayerPed(-1), 8, tonumber(componentstuff.undershirt), tonumber(componentstuff.undershirt_txt), 0)    
-    SetPedComponentVariation(GetPlayerPed(-1), 9, tonumber(componentstuff.armour), tonumber(componentstuff.armour_txt), 0)  
-end)
-
 RegisterNetEvent("mm:changeeverything_spawn") --Sets mask and texture when spawned
 AddEventHandler("mm:changeeverything_spawn",function(user)
     c_options.armour = user.armour

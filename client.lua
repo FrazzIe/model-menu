@@ -11,10 +11,31 @@ local options = {
     color_g = 144,
     color_b = 255,
 }
+local c_options = {
+    armour = 0,   
+    armour_txt = 0,
+    hair = 0,
+    hcolour = 0,
+    shirt = 0,
+    shirt_txt = 0,
+    pants = 0,
+    pants_txt = 0,
+    undershirt = 0,
+    undershirt_txt = 0,
+    shoes = 0,
+    shoes_txt = 0,
+    hand = 0,
+    mask = 0,
+    mask_txt = 0,
+    head = 0
+}
+mp_check = false
 shirt_help = false
 model_info = false
 texture_help = false
 secondsRemaining = 0
+secondsRemaining2 = 0
+
 AddEventHandler('playerSpawned', function(spawn)
 	TriggerServerEvent("mm:spawn")
 end)
@@ -47,9 +68,7 @@ end)
 
 RegisterNetEvent("mm:firstspawn")
 AddEventHandler("mm:firstspawn",function()
-	Main() -- Menu to draw
-    Menu.hidden = not Menu.hidden -- Hide/Show the menu
-    Menu.renderGUI(options) -- Draw menu on each tick if Menu.hidden = false
+    Notify("~g~Change your character at any clothing store!")
 end)
 
 RegisterNetEvent("mm:change_components_spawn") --Sets mask and texture when spawned
@@ -67,6 +86,51 @@ AddEventHandler("mm:change_components_spawn",function(componentstuff)
     SetPedComponentVariation(GetPlayerPed(-1), 9, tonumber(componentstuff.armour), tonumber(componentstuff.armour_txt), 0)  
 end)
 
+RegisterNetEvent("mm:changeeverything_spawn") --Sets mask and texture when spawned
+AddEventHandler("mm:changeeverything_spawn",function(user)
+    c_options.armour = user.armour
+    c_options.armour_txt = user.armour_txt
+    c_options.hair = user.hair
+    c_options.hcolour = user.hcolour
+    c_options.shirt = user.shirt
+    c_options.shirt_txt = user.shirt_txt
+    c_options.pants = user.pants
+    c_options.pants_txt = user.pants_txt
+    c_options.undershirt = user.undershirt
+    c_options.undershirt_txt = user.undershirt_txt
+    c_options.shoes = user.shoe
+    c_options.shoes_txt = user.shoe_txt
+    c_options.hand = user.hand
+    c_options.mask = user.mask
+    c_options.mask_txt = user.mask
+    c_options.head = user.head
+    SetPedComponentVariation(GetPlayerPed(-1), 0, tonumber(user.head), 0, 0) 
+    SetPedComponentVariation(GetPlayerPed(-1), 1, tonumber(user.mask), tonumber(user.mask_txt), 0)
+    SetPedComponentVariation(GetPlayerPed(-1), 2, tonumber(user.hair), tonumber(user.hcolour), 0)
+    SetPedComponentVariation(GetPlayerPed(-1), 6, tonumber(user.shoe), tonumber(user.shoe_txt), 0)
+    SetPedComponentVariation(GetPlayerPed(-1), 11, 0, 240, 0)
+    SetPedComponentVariation(GetPlayerPed(-1), 8, 0, 240, 0)
+    SetPedComponentVariation(GetPlayerPed(-1), 11, tonumber(user.shirt), tonumber(user.shirt_txt), 0)
+    SetPedComponentVariation(GetPlayerPed(-1), 3, tonumber(user.hand), 0, 0)
+    SetPedComponentVariation(GetPlayerPed(-1), 4, tonumber(user.pants), tonumber(user.pants_txt), 0)    
+    SetPedComponentVariation(GetPlayerPed(-1), 8, tonumber(user.undershirt), tonumber(user.undershirt_txt), 0)    
+    SetPedComponentVariation(GetPlayerPed(-1), 9, tonumber(user.armour), tonumber(user.armour_txt), 0)
+end)
+RegisterNetEvent("mm:changeeverything") --Sets mask and texture when spawned
+AddEventHandler("mm:changeeverything",function(user)
+    SetPedComponentVariation(GetPlayerPed(-1), 0, tonumber(user.head), 0, 0) 
+    SetPedComponentVariation(GetPlayerPed(-1), 1, tonumber(user.mask), tonumber(user.mask_txt), 0)
+    SetPedComponentVariation(GetPlayerPed(-1), 2, tonumber(user.hair), tonumber(user.hcolour), 0)
+    SetPedComponentVariation(GetPlayerPed(-1), 6, tonumber(user.shoe), tonumber(user.shoe_txt), 0)
+    SetPedComponentVariation(GetPlayerPed(-1), 11, 0, 240, 0)
+    SetPedComponentVariation(GetPlayerPed(-1), 8, 0, 240, 0)
+    SetPedComponentVariation(GetPlayerPed(-1), 11, tonumber(user.shirt), tonumber(user.shirt_txt), 0)
+    SetPedComponentVariation(GetPlayerPed(-1), 3, tonumber(user.hand), 0, 0)
+    SetPedComponentVariation(GetPlayerPed(-1), 4, tonumber(user.pants), tonumber(user.pants_txt), 0)    
+    SetPedComponentVariation(GetPlayerPed(-1), 8, tonumber(user.undershirt), tonumber(user.undershirt_txt), 0)    
+    SetPedComponentVariation(GetPlayerPed(-1), 9, tonumber(user.armour), tonumber(user.armour_txt), 0)
+end)
+
 function changemodel(model)
 	
 	local modelhashed = GetHashKey(model)
@@ -81,6 +145,7 @@ function changemodel(model)
 	SetPedRandomComponentVariation(GetPlayerPed(-1), true)
 	local a = "" -- nil doesnt work
 	SetModelAsNoLongerNeeded(modelhashed)
+    mp_check = false
 end
 
 function changempmodel(model)
@@ -100,6 +165,7 @@ function changempmodel(model)
 		SetPedComponentVariation(GetPlayerPed(-1), 0, 34, 0, 0)
 	end
 	SetModelAsNoLongerNeeded(modelhashed)
+    mp_check = true
 end
 
 function Notify(text)
@@ -143,21 +209,30 @@ end
 RegisterNetEvent("mm:Customisationisagogogo")
 AddEventHandler("mm:Customisationisagogogo",function()
     Customisation()
+    mp_check = true
 end)
 RegisterNetEvent("mm:Customisationisanonono")
 AddEventHandler("mm:Customisationisanonono",function()
+    mp_check = false
     model_info = true
     secondsRemaining = 10
     TriggerServerEvent("mm:timer")
 end)
+
 RegisterNetEvent("mm:timerend")
 AddEventHandler("mm:timerend",function()
     model_info = false
 end)
 
+RegisterNetEvent("mm:timerend2")
+AddEventHandler("mm:timerend2",function()
+    mp_check_message = false
+end)
+
 function Main()
     DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
-	Notify("~g~Press E to open/close")
+	Notify("Press ~r~E ~w~to ~g~open~w~/~r~close~w~!")
+    Notify("~w~Press ~g~F ~w~to ~g~save~w~!")
     options.menu_title = "Model Menu"
     options.menu_subtitle = "Categories"
     ClearMenu()
@@ -1601,13 +1676,9 @@ function ripearrings()
 	ClearPedProp(GetPlayerPed(-1),2)
 end
 function ripmask()
-	local mask = 0
-	TriggerServerEvent("mm:removemask", mask)
+	c_options.mask = 0
+    SetPedComponentVariation(GetPlayerPed(-1), 1, tonumber(c_options.mask), 0, 0)
 end
-RegisterNetEvent("mm:maskremove")  
-AddEventHandler("mm:maskremove",function(mask)
-    changemask(mask,nil)
-end)
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Mask Menu                     Page 1/9
 --Masks
@@ -1869,29 +1940,15 @@ end
 --Functions
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function savemask(mask) --Sets Players mask in database
-	TriggerServerEvent("mm:savemask", mask)
+    c_options.mask = mask
+    SetPedComponentVariation(GetPlayerPed(-1), 1, tonumber(c_options.mask), 0, 0)
+    maskTextures()
 end
-
-function changemask(mask) --Sets Players mask
-	SetPedComponentVariation(GetPlayerPed(-1), 1, mask, 0, 0)
-end
-
-RegisterNetEvent("mm:changemask")  
-AddEventHandler("mm:changemask",function(mask)
-    changemask(mask,nil)
-	maskTextures()
-end)
 
 function savetxt(mask_txt) --Sets mask texture in database
-	TriggerServerEvent("mm:savemask_txt", mask_txt)
+    c_options.mask_txt = mask_txt
+    SetPedComponentVariation(GetPlayerPed(-1), 1, tonumber(c_options.mask), tonumber(c_options.mask_txt), 0)
 end
-
-RegisterNetEvent("mm:changemask_txt") -- Sets mask texture
-AddEventHandler("mm:changemask_txt",function(maskstuff)
-	--Citizen.Trace(maskstuff.mask)
-	--Citizen.Trace(maskstuff.mask_txt)
-	SetPedComponentVariation(GetPlayerPed(-1), 1, tonumber(maskstuff.mask), tonumber(maskstuff.mask_txt), 0)
-end)
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Hat, Earrings and Glasses
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2137,17 +2194,9 @@ end
 	Head Functions
 --]]
 function savehead(head) --Sets Players head in database
-	TriggerServerEvent("mm:savehead", head)
+    c_options.head = head
+    SetPedComponentVariation(GetPlayerPed(-1), 0, tonumber(c_options.head), 0, 2)
 end
-
-function changehead(head) --Sets Players head
-	SetPedComponentVariation(GetPlayerPed(-1), 0, head, 0, 2)
-end
-
-RegisterNetEvent("mm:changehead")  
-AddEventHandler("mm:changehead",function(head)
-    changehead(head,nil)
-end)
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Customisation Menu
 --Hair
@@ -2346,33 +2395,19 @@ end
 --Functions
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function savehair(hair) --Sets Players head in database
-	TriggerServerEvent("mm:savehair", hair)
+    c_options.hair = hair
+    SetPedComponentVariation(GetPlayerPed(-1), 2, tonumber(c_options.hair), 0, 0)
+    HairColour()
 end
-
-function changehair(hair) --Sets Players head
-	SetPedComponentVariation(GetPlayerPed(-1), 2, hair, 0, 0)
-end
-
-RegisterNetEvent("mm:changehair")  
-AddEventHandler("mm:changehair",function(hair)
-    changehair(hair,nil)
-	HairColour()
-end)
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Customisation Menu
 --Hair Textures
 --Functions
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function savecolour(hcolour) --Sets mask texture in database
-	TriggerServerEvent("mm:savehcolour", hcolour)
+    c_options.hcolour = hcolour
+    SetPedComponentVariation(GetPlayerPed(-1), 2, tonumber(c_options.hair), tonumber(c_options.hcolour), 0)
 end
-
-RegisterNetEvent("mm:changehcolour") -- Sets mask texture
-AddEventHandler("mm:changehcolour",function(hairstuff)
-	--Citizen.Trace(maskstuff.mask)
-	--Citizen.Trace(maskstuff.mask_txt)
-	SetPedComponentVariation(GetPlayerPed(-1), 2, tonumber(hairstuff.hair), tonumber(hairstuff.hcolour), 0)
-end)
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Customisation Menu
 --Shirts
@@ -2903,35 +2938,21 @@ end
 --Functions
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function saveshirt(shirt) --Sets Players head in database
-	TriggerServerEvent("mm:saveshirt", shirt)
-end
-
-function changeshirt(shirt) --Sets Players head
+    c_options.shirt = shirt
     SetPedComponentVariation(GetPlayerPed(-1), 11, 0, 240, 0)
     SetPedComponentVariation(GetPlayerPed(-1), 8, 0, 240, 0)
-	SetPedComponentVariation(GetPlayerPed(-1), 11, shirt, 0, 0)
+    SetPedComponentVariation(GetPlayerPed(-1), 11, tonumber(c_options.shirt), 0, 0)
+    shirtTextures()
 end
-
-RegisterNetEvent("mm:changeshirt")  
-AddEventHandler("mm:changeshirt",function(shirt)
-    changeshirt(shirt,nil)
-	shirtTextures()
-end)
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Customisation Menu
 --Shirt Textures
 --Functions
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function saveshirt_txt(shirt_txt) --Sets mask texture in database
-	TriggerServerEvent("mm:saveshirt_txt", shirt_txt)
+    c_options.shirt_txt = shirt_txt
+    SetPedComponentVariation(GetPlayerPed(-1), 11, tonumber(c_options.shirt), tonumber(c_options.shirt_txt), 0)
 end
-
-RegisterNetEvent("mm:changeshirt_txt") -- Sets mask texture
-AddEventHandler("mm:changeshirt_txt",function(shirtstuff)
-	--Citizen.Trace(maskstuff.mask)
-	--Citizen.Trace(maskstuff.mask_txt)
-	SetPedComponentVariation(GetPlayerPed(-1), 11, tonumber(shirtstuff.shirt), tonumber(shirtstuff.shirt_txt), 0)
-end)
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Customisation Menu           Page 1/13
 --Hands
@@ -3194,21 +3215,13 @@ function HandsMenu13()
 end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Customisation Menu
---Shirts 
+--Hands
 --Functions
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function savehand(hand) --Sets Players head in database
-    TriggerServerEvent("mm:savehand", hand)
+    c_options.hand = hand
+    SetPedComponentVariation(GetPlayerPed(-1), 3, tonumber(c_options.hand), 0, 0)
 end
-
-function changehand(hand) --Sets Players head
-    SetPedComponentVariation(GetPlayerPed(-1), 3, tonumber(hand), 0, 0)
-end
-
-RegisterNetEvent("mm:changehand")  
-AddEventHandler("mm:changehand",function(hand)
-    changehand(hand,nil)
-end)
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Customisation Menu
 --Shoes
@@ -3473,33 +3486,19 @@ end
 --Functions
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function saveshoe(shoe) --Sets Players head in database
-    TriggerServerEvent("mm:saveshoe", shoe)
-end
-
-function changeshoe(shoe) --Sets Players head
-    SetPedComponentVariation(GetPlayerPed(-1), 6, shoe, 0, 0)
-end
-
-RegisterNetEvent("mm:changeshoe")  
-AddEventHandler("mm:changeshoe",function(shoe)
-    changeshoe(shoe,nil)
+    c_options.shoes = shoe
+    SetPedComponentVariation(GetPlayerPed(-1), 6, tonumber(c_options.shoes), 0, 0)
     shoeTextures()
-end)
+end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Customisation Menu
 --Shoe Textures
 --Functions
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function saveshoe_txt(shoe_txt) --Sets mask texture in database
-    TriggerServerEvent("mm:saveshoe_txt", shoe_txt)
+    c_options.shoes_txt = shoe_txt
+    SetPedComponentVariation(GetPlayerPed(-1), 6, tonumber(c_options.shoes), tonumber(c_options.shoes_txt), 0)
 end
-
-RegisterNetEvent("mm:changeshoe_txt") -- Sets mask texture
-AddEventHandler("mm:changeshoe_txt",function(shoestuff)
-    --Citizen.Trace(maskstuff.mask)
-    --Citizen.Trace(maskstuff.mask_txt)
-    SetPedComponentVariation(GetPlayerPed(-1), 6, tonumber(shoestuff.shoe), tonumber(shoestuff.shoe_txt), 0)
-end)
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Customisation Menu
 --Pants
@@ -3825,33 +3824,19 @@ end
 --Functions
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function savepants(pants) --Sets Players head in database
-    TriggerServerEvent("mm:savepants", pants)
-end
-
-function changepants(pants) --Sets Players head
-    SetPedComponentVariation(GetPlayerPed(-1), 4, pants, 0, 0)
-end
-
-RegisterNetEvent("mm:changepants")  
-AddEventHandler("mm:changepants",function(pants)
-    changepants(pants,nil)
+    c_options.pants = pants
+    SetPedComponentVariation(GetPlayerPed(-1), 4, tonumber(c_options.pants), 0, 0)
     pantsTextures()
-end)
+end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Customisation Menu
 --Pants Textures
 --Functions
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function savepants_txt(pants_txt) --Sets mask texture in database
-    TriggerServerEvent("mm:savepants_txt", pants_txt)
+    c_options.pants_txt = pants_txt
+    SetPedComponentVariation(GetPlayerPed(-1), 4, tonumber(c_options.pants), tonumber(c_options.pants_txt), 0)
 end
-
-RegisterNetEvent("mm:changepants_txt") -- Sets mask texture
-AddEventHandler("mm:changepants_txt",function(pantsstuff)
-    --Citizen.Trace(maskstuff.mask)
-    --Citizen.Trace(maskstuff.mask_txt)
-    SetPedComponentVariation(GetPlayerPed(-1), 4, tonumber(pantsstuff.pants), tonumber(pantsstuff.pants_txt), 0)
-end)
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Customisation Menu
 --Undershirts
@@ -3863,7 +3848,7 @@ function UndershirtMenu()
     ClearMenu()
     Menu.addButton("Male","MaleUndershirtMenu",nil)
     Menu.addButton("Female","FemaleUndershirtMenu",nil)
-    Menu.addButton("Remove Undershirt","RemoveUnderShirt")
+    Menu.addButton("Remove undershirt","RemoveUnderShirt")
     Menu.addButton("Return","Customisation",nil)
 end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -4291,20 +4276,15 @@ end
 --Functions
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function saveundershirt(undershirt) --Sets Players head in database
-    TriggerServerEvent("mm:saveundershirt", undershirt)
-end
-
-function changeundershirt(undershirt) --Sets Players head
+    c_options.undershirt = undershirt
     SetPedComponentVariation(GetPlayerPed(-1), 8, undershirt, 0, 0)
+    undershirtTextures()
 end
 
-RegisterNetEvent("mm:changeundershirt")  
-AddEventHandler("mm:changeundershirt",function(undershirt)
-    changeundershirt(undershirt,nil)
-    undershirtTextures()
-end)
 function RemoveUnderShirt()
-    TriggerServerEvent("mm:removeUndershirt")
+    c_options.undershirt = 0
+    c_options.undershirt_txt = 240
+    SetPedComponentVariation(GetPlayerPed(-1), 8, tonumber(c_options.undershirt), tonumber(c_options.undershirt_txt), 0)
 end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Customisation Menu
@@ -4312,18 +4292,9 @@ end
 --Functions
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function saveundershirt_txt(undershirt_txt) --Sets mask texture in database
-    TriggerServerEvent("mm:saveundershirt_txt", undershirt_txt)
+    c_options.undershirt_txt = undershirt_txt
+    SetPedComponentVariation(GetPlayerPed(-1), 8, tonumber(c_options.undershirt), tonumber(c_options.undershirt_txt), 0)
 end
-
-RegisterNetEvent("mm:changeundershirt_txt") -- Sets mask texture
-AddEventHandler("mm:changeundershirt_txt",function(undershirtstuff)
-    SetPedComponentVariation(GetPlayerPed(-1), 8, tonumber(undershirtstuff.undershirt), tonumber(undershirtstuff.undershirt_txt), 0)
-end)
-
-RegisterNetEvent("mm:undershirtremove") -- Sets mask texture
-AddEventHandler("mm:undershirtremove",function(undershirtstuff)
-    SetPedComponentVariation(GetPlayerPed(-1), 8, tonumber(undershirtstuff.undershirt), tonumber(undershirtstuff.undershirt_txt), 0)
-end)
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Customisation Menu
 --Armour
@@ -4387,42 +4358,25 @@ end
 --Functions
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function savearmour(armour) --Sets Players head in database
-    TriggerServerEvent("mm:savearmour", armour)
+    c_options.armour = armour
+    SetPedComponentVariation(GetPlayerPed(-1), 9, tonumber(c_options.armour), 0, 0)
+    armourTextures()
 end
 
 function removearmour(armour) --Sets Players head in database
-    TriggerServerEvent("mm:removearmour", armour)
+    c_options.armour = armour
+    SetPedComponentVariation(GetPlayerPed(-1), 9, tonumber(c_options.armour), 0, 0)
 end
 
-RegisterNetEvent("mm:changerarmour")  
-AddEventHandler("mm:changerarmour",function(armour)
-    changearmour(armour,nil)
-end)
-
-function changearmour(armour) --Sets Players head
-    SetPedComponentVariation(GetPlayerPed(-1), 9, armour, 0, 0)
-end
-
-RegisterNetEvent("mm:changearmour")  
-AddEventHandler("mm:changearmour",function(armour)
-    changearmour(armour,nil)
-    armourTextures()
-end)
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Customisation Menu
 --Armour Textures
 --Functions
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function savearmour_txt(armour_txt) --Sets mask texture in database
-    TriggerServerEvent("mm:savearmour_txt", armour_txt)
+    c_options.armour_txt = armour_txt
+    SetPedComponentVariation(GetPlayerPed(-1), 9, tonumber(c_options.armour), tonumber(c_options.armour_txt), 0)
 end
-
-RegisterNetEvent("mm:changearmour_txt") -- Sets mask texture
-AddEventHandler("mm:changearmour_txt",function(armourstuff)
-    --Citizen.Trace(maskstuff.mask)
-    --Citizen.Trace(maskstuff.mask_txt)
-    SetPedComponentVariation(GetPlayerPed(-1), 9, tonumber(armourstuff.armour), tonumber(armourstuff.armour_txt), 0)
-end)
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Press E to open/close menu in the red marker
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -4434,6 +4388,7 @@ local emplacement = {
     {name="Clothing Store", id=73, x=-821.69, y=-1073.90, z=11.32},
     {name="Clothing Store", id=73, x=-1192.81, y=-768.24, z=17.31},
     {name="Clothing Store", id=73, x=4.25, y=6512.88, z=31.87},
+    {name="Clothing Store", id=73, x=425.471, y=-806.164, z=29.4911},
 }
 incircle = false
 Citizen.CreateThread(function()
@@ -4464,9 +4419,42 @@ Citizen.CreateThread(function()
                         model_info = false
                         texture_help = false
                     end
+                    if(IsControlJustReleased(1, 23)) then 
+                        if mp_check then
+                            mp_check_message = false
+                            local user = {
+                                hair = c_options.hair,
+                                hcolour = c_options.hcolour,
+                                shirt = c_options.shirt,
+                                shirt_txt = c_options.shirt_txt,
+                                pants = c_options.pants,
+                                pants_txt = c_options.pants_txt,
+                                undershirt = c_options.undershirt,
+                                undershirt_txt = c_options.undershirt_txt,
+                                shoe = c_options.shoes,
+                                shoe_txt = c_options.shoes_txt,
+                                hand = c_options.hand,
+                                mask = c_options.mask,
+                                mask_txt = c_options.mask_txt,
+                                head = c_options.head,
+                                armour = c_options.armour,
+                                armour_txt = c_options.armour_txt
+                            }
+                            Notify("~g~You saved your outfit.") 
+                            TriggerServerEvent("mm:saveeverything", user)
+                        else
+                            secondsRemaining2 = 10
+                            mp_check_message = true
+                            TriggerServerEvent("mm:timer2")                          
+                        end
+                    end
                     Menu.renderGUI(options) -- Draw menu on each tick if Menu.hidden = false
                 elseif(Vdist(pos.x, pos.y, pos.z, v.x, v.y, v.z) > 1.0)then
                     incircle = false
+                    shirt_help = false
+                    model_info = false
+                    texture_help = false
+                    mp_check_message = false
                 end
             end
         end
@@ -4499,6 +4487,14 @@ Citizen.CreateThread(function()
 end)
 Citizen.CreateThread(function()
     while true do
+        if mp_check_message then
+            drawTxt(0.66, 1.38, 1.0,1.0,0.4, "(~g~" .. secondsRemaining2 .. "~w~) ~r~NOTICE~w~: You cannot save your outfit as your model isn't customisable.", 255, 255, 255, 255)
+        end
+        Citizen.Wait(0)
+    end
+end)
+Citizen.CreateThread(function()
+    while true do
         if texture_help then
             drawTxt(0.66, 1.45, 1.0,1.0,0.4, "~r~NOTICE~w~: (~g~Number~w~) = the number of ~g~Textures ~w~available.", 255, 255, 255, 255)
             drawTxt(0.66, 1.42, 1.0,1.0,0.4, "~r~NOTICE~w~: ~g~T~w~ = ~g~Textures ~w~and the numbers are textures that work with the clothing.", 255, 255, 255, 255)
@@ -4512,6 +4508,18 @@ Citizen.CreateThread(function()
             Citizen.Wait(1000)
             if(secondsRemaining > 0)then
                 secondsRemaining = secondsRemaining - 1
+            end
+        end
+
+        Citizen.Wait(0)
+    end
+end)
+Citizen.CreateThread(function()
+    while true do
+        if mp_check_message then
+            Citizen.Wait(1000)
+            if(secondsRemaining2 > 0)then
+                secondsRemaining2 = secondsRemaining2 - 1
             end
         end
 

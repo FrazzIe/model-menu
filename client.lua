@@ -27,7 +27,11 @@ local c_options = {
     hand = 0,
     mask = 0,
     mask_txt = 0,
-    head = 0
+    head = 0,
+    helmet = 0,
+    helmet_txt = 0,
+    glasses = 0,
+    glasses_txt = 0
 }
 mp_check = false
 shirt_help = false
@@ -89,6 +93,10 @@ AddEventHandler("mm:changeeverything_spawn",function(user)
     c_options.mask = user.mask
     c_options.mask_txt = user.mask
     c_options.head = user.head
+    c_options.helmet = user.helmet
+    c_options.helmet_txt = user.helmet_txt
+    c_options.glasses = user.glasses
+    c_options.glasses_txt = user.glasses_txt
     SetPedComponentVariation(GetPlayerPed(-1), 0, tonumber(user.head), 0, 0) 
     SetPedComponentVariation(GetPlayerPed(-1), 1, tonumber(user.mask), tonumber(user.mask_txt), 0)
     SetPedComponentVariation(GetPlayerPed(-1), 2, tonumber(user.hair), tonumber(user.hcolour), 0)
@@ -100,6 +108,8 @@ AddEventHandler("mm:changeeverything_spawn",function(user)
     SetPedComponentVariation(GetPlayerPed(-1), 4, tonumber(user.pants), tonumber(user.pants_txt), 0)    
     SetPedComponentVariation(GetPlayerPed(-1), 8, tonumber(user.undershirt), tonumber(user.undershirt_txt), 0)    
     SetPedComponentVariation(GetPlayerPed(-1), 9, tonumber(user.armour), tonumber(user.armour_txt), 0)
+    SetPedPropIndex(GetPlayerPed(-1), 0, tonumber(user.helmet), tonumber(user.helmet_txt), 0)
+    SetPedPropIndex(GetPlayerPed(-1), 1, tonumber(user.glasses), tonumber(user.glasses_txt), 0)
 end)
 RegisterNetEvent("mm:changeeverything") --Sets mask and texture when spawned
 AddEventHandler("mm:changeeverything",function(user)
@@ -114,6 +124,8 @@ AddEventHandler("mm:changeeverything",function(user)
     SetPedComponentVariation(GetPlayerPed(-1), 4, tonumber(user.pants), tonumber(user.pants_txt), 0)    
     SetPedComponentVariation(GetPlayerPed(-1), 8, tonumber(user.undershirt), tonumber(user.undershirt_txt), 0)    
     SetPedComponentVariation(GetPlayerPed(-1), 9, tonumber(user.armour), tonumber(user.armour_txt), 0)
+    SetPedPropIndex(GetPlayerPed(-1), 0, tonumber(user.helmet), tonumber(user.helmet_txt), 0)
+    SetPedPropIndex(GetPlayerPed(-1), 1, tonumber(user.glasses), tonumber(user.glasses_txt), 0)
 end)
 
 function changemodel(model)
@@ -1633,9 +1645,9 @@ function Accessories()
     texture_help = false
     options.menu_subtitle = "Accessories"
     ClearMenu()
-    Menu.addButton("Hats", "HatChecker")
-    Menu.addButton("Glasses", "GlassesChecker")
-    Menu.addButton("Earings", "PercingChecker")
+    Menu.addButton("Helmet/Hats", "HelmetMenu")
+    Menu.addButton("Glasses", "GlassesMenu")
+    --Menu.addButton("Earings", "PercingMenu")
     Menu.addButton("Masks", "MaskMenu")
 	Menu.addButton("Remove Accessories", "RemoveAccessories")
     Menu.addButton("Return","Customisation",nil)
@@ -1652,9 +1664,11 @@ function RemoveAccessories()
 end
 
 function riphat()
+    c_options.helmet = 0
 	ClearPedProp(GetPlayerPed(-1),0)
 end
 function ripglasses()
+    c_options.glasses = 0
 	ClearPedProp(GetPlayerPed(-1),1)
 end
 function ripearrings()
@@ -1935,36 +1949,275 @@ function savetxt(mask_txt) --Sets mask texture in database
     SetPedComponentVariation(GetPlayerPed(-1), 1, tonumber(c_options.mask), tonumber(c_options.mask_txt), 0)
 end
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---Hat, Earrings and Glasses
+--Accessories          Page 1/5
+--Helmet Menu
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---Credits to JcPires for this crap \/\/\/
-function HatChecker()
-	TriggerServerEvent("mm:wearHat")
+function HelmetMenu()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Helmets                 Page 1 of 5"
+    ClearMenu()
+    Menu.addButton(hat.name[Menu.buttonCount+1], "sethelmet", hat.drawable[Menu.buttonCount+1])
+    Menu.addButton(hat.name[Menu.buttonCount+1], "sethelmet", hat.drawable[Menu.buttonCount+1])
+    Menu.addButton(hat.name[Menu.buttonCount+1], "sethelmet", hat.drawable[Menu.buttonCount+1])
+    Menu.addButton(hat.name[Menu.buttonCount+1], "sethelmet", hat.drawable[Menu.buttonCount+1])
+    Menu.addButton(hat.name[Menu.buttonCount+1], "sethelmet", hat.drawable[Menu.buttonCount+1])
+    Menu.addButton(hat.name[Menu.buttonCount+1], "sethelmet", hat.drawable[Menu.buttonCount+1])
+    Menu.addButton(hat.name[Menu.buttonCount+1], "sethelmet", hat.drawable[Menu.buttonCount+1])
+    Menu.addButton(hat.name[Menu.buttonCount+1], "sethelmet", hat.drawable[Menu.buttonCount+1])
+    Menu.addButton("Next Page","HelmetMenu2",nil)
+    Menu.addButton("Previous Page","HelmetMenu5",nil)
+    Menu.addButton("Return","Accessories",nil)
+end
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Accessories          Page 2/5
+--Helmet Menu
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function HelmetMenu2()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Helmets                 Page 2 of 5"
+    ClearMenu()
+    Menu.addButton(hat.name2[Menu.buttonCount+1], "sethelmet", hat.drawable2[Menu.buttonCount+1])
+    Menu.addButton(hat.name2[Menu.buttonCount+1], "sethelmet", hat.drawable2[Menu.buttonCount+1])
+    Menu.addButton(hat.name2[Menu.buttonCount+1], "sethelmet", hat.drawable2[Menu.buttonCount+1])
+    Menu.addButton(hat.name2[Menu.buttonCount+1], "sethelmet", hat.drawable2[Menu.buttonCount+1])
+    Menu.addButton(hat.name2[Menu.buttonCount+1], "sethelmet", hat.drawable2[Menu.buttonCount+1])
+    Menu.addButton(hat.name2[Menu.buttonCount+1], "sethelmet", hat.drawable2[Menu.buttonCount+1])
+    Menu.addButton("Next Page","HelmetMenu3",nil)
+    Menu.addButton("Previous Page","HelmetMenu",nil)
+    Menu.addButton("Return","Accessories",nil)
+end
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Accessories          Page 3/5
+--Helmet Menu
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function HelmetMenu3()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Helmets                 Page 3 of 5"
+    ClearMenu()
+    Menu.addButton(hat.name3[Menu.buttonCount+1], "sethelmet", hat.drawable3[Menu.buttonCount+1])
+    Menu.addButton(hat.name3[Menu.buttonCount+1], "sethelmet", hat.drawable3[Menu.buttonCount+1])
+    Menu.addButton(hat.name3[Menu.buttonCount+1], "sethelmet", hat.drawable3[Menu.buttonCount+1])
+    Menu.addButton(hat.name3[Menu.buttonCount+1], "sethelmet", hat.drawable3[Menu.buttonCount+1])
+    Menu.addButton(hat.name3[Menu.buttonCount+1], "sethelmet", hat.drawable3[Menu.buttonCount+1])
+    Menu.addButton(hat.name3[Menu.buttonCount+1], "sethelmet", hat.drawable3[Menu.buttonCount+1])
+    Menu.addButton(hat.name3[Menu.buttonCount+1], "sethelmet", hat.drawable3[Menu.buttonCount+1])
+    Menu.addButton(hat.name3[Menu.buttonCount+1], "sethelmet", hat.drawable3[Menu.buttonCount+1])
+    Menu.addButton("Next Page","HelmetMenu4",nil)
+    Menu.addButton("Previous Page","HelmetMenu2",nil)
+    Menu.addButton("Return","Accessories",nil)
+end
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Accessories          Page 4/5
+--Helmet Menu
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function HelmetMenu4()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Helmets                 Page 4 of 5"
+    ClearMenu()
+    Menu.addButton(hat.name4[Menu.buttonCount+1], "sethelmet", hat.drawable4[Menu.buttonCount+1])
+    Menu.addButton(hat.name4[Menu.buttonCount+1], "sethelmet", hat.drawable4[Menu.buttonCount+1])
+    Menu.addButton(hat.name4[Menu.buttonCount+1], "sethelmet", hat.drawable4[Menu.buttonCount+1])
+    Menu.addButton(hat.name4[Menu.buttonCount+1], "sethelmet", hat.drawable4[Menu.buttonCount+1])
+    Menu.addButton(hat.name4[Menu.buttonCount+1], "sethelmet", hat.drawable4[Menu.buttonCount+1])
+    Menu.addButton(hat.name4[Menu.buttonCount+1], "sethelmet", hat.drawable4[Menu.buttonCount+1])
+    Menu.addButton(hat.name4[Menu.buttonCount+1], "sethelmet", hat.drawable4[Menu.buttonCount+1])
+    Menu.addButton(hat.name4[Menu.buttonCount+1], "sethelmet", hat.drawable4[Menu.buttonCount+1])
+    Menu.addButton("Next Page","HelmetMenu5",nil)
+    Menu.addButton("Previous Page","HelmetMenu3",nil)
+    Menu.addButton("Return","Accessories",nil)
+end
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Accessories          Page 5/5
+--Helmet Menu
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function HelmetMenu5()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Helmets                 Page 5 of 5"
+    ClearMenu()
+    Menu.addButton(hat.name5[Menu.buttonCount+1], "sethelmet", hat.drawable5[Menu.buttonCount+1])
+    Menu.addButton(hat.name5[Menu.buttonCount+1], "sethelmet", hat.drawable5[Menu.buttonCount+1])
+    Menu.addButton(hat.name5[Menu.buttonCount+1], "sethelmet", hat.drawable5[Menu.buttonCount+1])
+    Menu.addButton(hat.name5[Menu.buttonCount+1], "sethelmet", hat.drawable5[Menu.buttonCount+1])
+    Menu.addButton(hat.name5[Menu.buttonCount+1], "sethelmet", hat.drawable5[Menu.buttonCount+1])
+    Menu.addButton(hat.name5[Menu.buttonCount+1], "sethelmet", hat.drawable5[Menu.buttonCount+1])
+    Menu.addButton(hat.name5[Menu.buttonCount+1], "sethelmet", hat.drawable5[Menu.buttonCount+1])
+    Menu.addButton(hat.name5[Menu.buttonCount+1], "sethelmet", hat.drawable5[Menu.buttonCount+1])
+    Menu.addButton("Next Page","HelmetMenu",nil)
+    Menu.addButton("Previous Page","HelmetMenu4",nil)
+    Menu.addButton("Return","Accessories",nil)
+end
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Accessories          Page 1/2
+--Helmet Menu
+--Textures
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function helmetTextures()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Helmet Textures         Page 1 of 2"
+    ClearMenu()
+    Menu.addButton(hat.texture[Menu.buttonCount+1], "sethelmet_txt", hat.texture[Menu.buttonCount+1])
+    Menu.addButton(hat.texture[Menu.buttonCount+1], "sethelmet_txt", hat.texture[Menu.buttonCount+1])
+    Menu.addButton(hat.texture[Menu.buttonCount+1], "sethelmet_txt", hat.texture[Menu.buttonCount+1])
+    Menu.addButton(hat.texture[Menu.buttonCount+1], "sethelmet_txt", hat.texture[Menu.buttonCount+1])
+    Menu.addButton(hat.texture[Menu.buttonCount+1], "sethelmet_txt", hat.texture[Menu.buttonCount+1])
+    Menu.addButton(hat.texture[Menu.buttonCount+1], "sethelmet_txt", hat.texture[Menu.buttonCount+1])
+    Menu.addButton(hat.texture[Menu.buttonCount+1], "sethelmet_txt", hat.texture[Menu.buttonCount+1])
+    Menu.addButton(hat.texture[Menu.buttonCount+1], "sethelmet_txt", hat.texture[Menu.buttonCount+1])
+    Menu.addButton("Next Page","helmetTextures2",nil)
+    Menu.addButton("Previous Page","helmetTextures",nil)
+    Menu.addButton("Return","HelmetMenu",nil)
+end
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Accessories          Page 2/2
+--Helmet Menu
+--Textures
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function helmetTextures2()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Helmet textures         Page 2 of 2"
+    ClearMenu()
+    Menu.addButton(hat.texture2[Menu.buttonCount+1], "sethelmet_txt", hat.texture2[Menu.buttonCount+1])
+    Menu.addButton(hat.texture2[Menu.buttonCount+1], "sethelmet_txt", hat.texture2[Menu.buttonCount+1])
+    Menu.addButton(hat.texture2[Menu.buttonCount+1], "sethelmet_txt", hat.texture2[Menu.buttonCount+1])
+    Menu.addButton(hat.texture2[Menu.buttonCount+1], "sethelmet_txt", hat.texture2[Menu.buttonCount+1])
+    Menu.addButton(hat.texture2[Menu.buttonCount+1], "sethelmet_txt", hat.texture2[Menu.buttonCount+1])
+    Menu.addButton(hat.texture2[Menu.buttonCount+1], "sethelmet_txt", hat.texture2[Menu.buttonCount+1])
+    Menu.addButton(hat.texture2[Menu.buttonCount+1], "sethelmet_txt", hat.texture2[Menu.buttonCount+1])
+    Menu.addButton("Next Page","helmetTextures",nil)
+    Menu.addButton("Previous Page","helmetTextures",nil)
+    Menu.addButton("Return","HelmetMenu",nil)
+end
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Hat/Helmet Functions
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function sethelmet(helmet)
+    c_options.helmet = helmet
+    --c_options.helmet_txt = helmet_txt
+    SetPedPropIndex(GetPlayerPed(-1), 0, tonumber(c_options.helmet), 0, 0)
+    helmetTextures()
 end
 
-function PercingChecker()
-    TriggerServerEvent("mm:wearPercing")
+function sethelmet_txt(helmet_txt)
+    c_options.helmet_txt = helmet_txt
+    SetPedPropIndex(GetPlayerPed(-1), 0, tonumber(c_options.helmet), tonumber(c_options.helmet_txt), 0)
+end
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Accessories          Page 1/3
+--Glasses Menu
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function GlassesMenu()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Glasses                 Page 1 of 3"
+    ClearMenu()
+    Menu.addButton(glasses.name[Menu.buttonCount+1], "setglasses", glasses.drawable[Menu.buttonCount+1])
+    Menu.addButton(glasses.name[Menu.buttonCount+1], "setglasses", glasses.drawable[Menu.buttonCount+1])
+    Menu.addButton(glasses.name[Menu.buttonCount+1], "setglasses", glasses.drawable[Menu.buttonCount+1])
+    Menu.addButton(glasses.name[Menu.buttonCount+1], "setglasses", glasses.drawable[Menu.buttonCount+1])
+    Menu.addButton(glasses.name[Menu.buttonCount+1], "setglasses", glasses.drawable[Menu.buttonCount+1])
+    Menu.addButton(glasses.name[Menu.buttonCount+1], "setglasses", glasses.drawable[Menu.buttonCount+1])
+    Menu.addButton("Next Page","GlassesMenu2",nil)
+    Menu.addButton("Previous Page","GlassesMenu3",nil)
+    Menu.addButton("Return","Accessories",nil)
+end
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Accessories          Page 2/3
+--Glasses Menu
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function GlassesMenu2()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Glasses                 Page 2 of 3"
+    ClearMenu()
+    Menu.addButton(glasses.name2[Menu.buttonCount+1], "setglasses", glasses.drawable2[Menu.buttonCount+1])
+    Menu.addButton(glasses.name2[Menu.buttonCount+1], "setglasses", glasses.drawable2[Menu.buttonCount+1])
+    Menu.addButton(glasses.name2[Menu.buttonCount+1], "setglasses", glasses.drawable2[Menu.buttonCount+1])
+    Menu.addButton(glasses.name2[Menu.buttonCount+1], "setglasses", glasses.drawable2[Menu.buttonCount+1])
+    Menu.addButton(glasses.name2[Menu.buttonCount+1], "setglasses", glasses.drawable2[Menu.buttonCount+1])
+    Menu.addButton(glasses.name2[Menu.buttonCount+1], "setglasses", glasses.drawable2[Menu.buttonCount+1])
+    Menu.addButton("Next Page","GlassesMenu3",nil)
+    Menu.addButton("Previous Page","GlassesMenu",nil)
+    Menu.addButton("Return","Accessories",nil)
+end
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Accessories          Page 3/3
+--Glasses Menu
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function GlassesMenu3()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Glasses                 Page 3 of 3"
+    ClearMenu()
+    Menu.addButton(glasses.name3[Menu.buttonCount+1], "setglasses", glasses.drawable3[Menu.buttonCount+1])
+    Menu.addButton(glasses.name3[Menu.buttonCount+1], "setglasses", glasses.drawable3[Menu.buttonCount+1])
+    Menu.addButton(glasses.name3[Menu.buttonCount+1], "setglasses", glasses.drawable3[Menu.buttonCount+1])
+    Menu.addButton(glasses.name3[Menu.buttonCount+1], "setglasses", glasses.drawable3[Menu.buttonCount+1])
+    Menu.addButton(glasses.name3[Menu.buttonCount+1], "setglasses", glasses.drawable3[Menu.buttonCount+1])
+    Menu.addButton(glasses.name3[Menu.buttonCount+1], "setglasses", glasses.drawable3[Menu.buttonCount+1])
+    Menu.addButton(glasses.name3[Menu.buttonCount+1], "setglasses", glasses.drawable3[Menu.buttonCount+1])
+    Menu.addButton(glasses.name3[Menu.buttonCount+1], "setglasses", glasses.drawable3[Menu.buttonCount+1])
+    Menu.addButton("Next Page","GlassesMenu",nil)
+    Menu.addButton("Previous Page","GlassesMenu2",nil)
+    Menu.addButton("Return","Accessories",nil)
+end
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Accessories          Page 1/2
+--Glasses Menu
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function glassesTextures()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Glasses textures        Page 2 of 2"
+    ClearMenu()
+    Menu.addButton(glasses.texture[Menu.buttonCount+1], "setglasses_txt", glasses.texture[Menu.buttonCount+1])
+    Menu.addButton(glasses.texture[Menu.buttonCount+1], "setglasses_txt", glasses.texture[Menu.buttonCount+1])
+    Menu.addButton(glasses.texture[Menu.buttonCount+1], "setglasses_txt", glasses.texture[Menu.buttonCount+1])
+    Menu.addButton(glasses.texture[Menu.buttonCount+1], "setglasses_txt", glasses.texture[Menu.buttonCount+1])
+    Menu.addButton(glasses.texture[Menu.buttonCount+1], "setglasses_txt", glasses.texture[Menu.buttonCount+1])
+    Menu.addButton(glasses.texture[Menu.buttonCount+1], "setglasses_txt", glasses.texture[Menu.buttonCount+1])
+    Menu.addButton(glasses.texture[Menu.buttonCount+1], "setglasses_txt", glasses.texture[Menu.buttonCount+1])
+    Menu.addButton(glasses.texture[Menu.buttonCount+1], "setglasses_txt", glasses.texture[Menu.buttonCount+1])
+    Menu.addButton("Next Page","glassesTextures2",nil)
+    Menu.addButton("Previous Page","glassesTextures2",nil)
+    Menu.addButton("Return","GlassesMenu",nil)
+end
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Accessories          Page 2/2
+--Glasses Menu
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function glassesTextures2()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Glasses textures        Page 2 of 2"
+    ClearMenu()
+    Menu.addButton(glasses.texture2[Menu.buttonCount+1], "setglasses_txt", glasses.texture2[Menu.buttonCount+1])
+    Menu.addButton(glasses.texture2[Menu.buttonCount+1], "setglasses_txt", glasses.texture2[Menu.buttonCount+1])
+    Menu.addButton(glasses.texture2[Menu.buttonCount+1], "setglasses_txt", glasses.texture2[Menu.buttonCount+1])
+    Menu.addButton(glasses.texture2[Menu.buttonCount+1], "setglasses_txt", glasses.texture2[Menu.buttonCount+1])
+    Menu.addButton(glasses.texture2[Menu.buttonCount+1], "setglasses_txt", glasses.texture2[Menu.buttonCount+1])
+    Menu.addButton(glasses.texture2[Menu.buttonCount+1], "setglasses_txt", glasses.texture2[Menu.buttonCount+1])
+    Menu.addButton(glasses.texture2[Menu.buttonCount+1], "setglasses_txt", glasses.texture2[Menu.buttonCount+1])
+    Menu.addButton("Next Page","glassesTextures",nil)
+    Menu.addButton("Previous Page","glassesTextures",nil)
+    Menu.addButton("Return","GlassesMenu",nil)
 end
 
-function GlassesChecker()
-    TriggerServerEvent("mm:wearGlasses")
+
+function setglasses(glasses)
+    c_options.glasses = glasses
+    SetPedPropIndex(GetPlayerPed(-1), 1, tonumber(c_options.glasses), 0, 0)
+    glassesTextures()
+end
+
+function setglasses_txt(glasses_txt)
+    c_options.glasses_txt = glasses_txt
+   SetPedPropIndex(GetPlayerPed(-1), 1, tonumber(c_options.glasses), tonumber(c_options.glasses_txt), 0)
+end
+
+function setpercing()
+    SetPedPropIndex(GetPlayerPed(-1), 2, tonumber(c_options.percing), 0, 0)
+end
+
+function setpercing_txt()
+   SetPedPropIndex(GetPlayerPed(-1), 2, tonumber(c_options.percing), tonumber(c_options.percing_txt), 0)
 end
 
 
-RegisterNetEvent("mm:Hatwear")
-AddEventHandler("mm:Hatwear", function(item)
-    SetPedPropIndex(GetPlayerPed(-1), 0, item.helmet,item.helmet_txt, 0)
-end)
-
-RegisterNetEvent("mm:Percingwear")
-AddEventHandler("mm:Percingwear", function(item)
-    SetPedPropIndex(GetPlayerPed(-1), 2, item.percing,item.percing_txt, 0)
-end)
-
-RegisterNetEvent("mm:Glasseswear")
-AddEventHandler("mm:Glasseswear", function(item)
-    SetPedPropIndex(GetPlayerPed(-1), 1, item.glasses,item.glasses_txt, 0)
-end)
 --[[
   ______                           _                 _               
  / _____)          _              (_)           _   (_)              
@@ -4423,7 +4676,11 @@ Citizen.CreateThread(function()
                                 mask_txt = c_options.mask_txt,
                                 head = c_options.head,
                                 armour = c_options.armour,
-                                armour_txt = c_options.armour_txt
+                                armour_txt = c_options.armour_txt,
+                                helmet = c_options.helmet,
+                                helmet_txt = c_options.helmet_txt,
+                                glasses = c_options.glasses,
+                                glasses_txt = c_options.glasses_txt
                             }
                             Notify("~g~You saved your outfit.") 
                             TriggerServerEvent("mm:saveeverything", user)

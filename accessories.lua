@@ -593,7 +593,7 @@ shirts = {
 	'134',
 	'135',
 	'136'
-	},
+	}, -------
 	shirts_pg18 = {'137',
 	'138',
 	'139',
@@ -1675,5 +1675,162 @@ armour = {
 	'Green',
 	'Desert',
 	'Woodland'
+	}
+}
+hat = {
+	drawable = {'0',
+	'1',
+	'2',
+	'3',
+	'4',
+	'5',
+	'6',
+	'7'
+	},
+	drawable2 = {'9',
+	'10',
+	'12',
+	'13',
+	'14',
+	'15'
+	},
+	drawable3 = {'16',
+	'17',
+	'18',
+	'19',
+	'20',
+	'21',
+	'22',
+	'23'
+	},
+	drawable4 = {'24',
+	'25',
+	'26',
+	'27',
+	'28',
+	'29',
+	'30',
+	'31'
+	},
+	drawable5 = {'32',
+	'33'
+	},
+	name = {'Ear defenders (8)',
+	'Cheaters pool hat (1)',
+	'Winter hats (8)',
+	'Canvas hats (T:1,2)',
+	'LS Fitted Cap (2)', --LS
+	'Beenies (2)',
+	'Army caps (8)',
+	'Flat cap (8)'
+	},
+	name2 = {'Caps, Backward (T:5,7)',
+	'Caps, Forward (T:5,7)',
+	'Fedoras (8)',
+	'Cowboy hats (8)',
+	'Bandanas (8)',
+	'Headphones (8)'
+	},
+	name3 = {'Helmets (8)',
+	'Helmets (8)',
+	'Helmets (8)',
+	'Ear defenders + mic (1)',
+	'Canvas hat (6)',
+	'Pork pie hats (8)',
+	'Christmas hat (2)',
+	'Elf hat (1)'
+	},
+	name4 = {'Reindeer hairband (1)',
+	'Fedoras (2)',
+	'Bowler hats (14)',
+	'Top hats (14)',
+	'Saggy beenies (6)',
+	'Trilby hats (8)',
+	'Fedoras (2)',
+	'USA Bucket hat (1)'
+	},
+	name5 = {'USA Top hat (1)',
+	'Top foam hat (2)'
+	},
+	texture = {'0',
+	'1',
+	'2',
+	'3',
+	'4',
+	'5',
+	'6',
+	'7'
+	},
+	texture2 = {'8',
+	'9',
+	'10',
+	'11',
+	'12',
+	'13',
+	'14'
+	}
+
+}
+glasses = {
+	drawable = {'1',
+	'2',
+	'3',
+	'4',
+	'5',
+	'7'
+	},
+	drawable2 = {'8',
+	'9',
+	'10',
+	'12',
+	'13',
+	'15'
+	},
+	drawable3 = {'16',
+	'17',
+	'18',
+	'19',
+	'20',
+	'21',
+	'22',
+	'23'
+	},
+	drawable4 = {'24'
+	},
+	name = {'Black Wraparounds (T:1)',
+	'Summer Shades (11)',
+	'Janitor Frames (11)',
+	'Enema Glasses (11)',
+	'Aviators (11)',
+	'Casual Glasses (11)'
+	},
+	name2 = {'Eyewear (11)',
+	'Hawaiian Snow (11)',
+	'Bull Emic (11)',
+	'Elvis (11)',
+	'Hipsters (11)',
+	'Guns (11)'
+	},
+	name3 = {'Broker Wraparounds (10)',
+	'Refined Glasses (11)',
+	'Superior Glasses (11)',
+	'Trends (11)',
+	'Docks (11)',
+	'USA (1)',
+	'USA (1)',
+	'Shell Gun (10)'
+	},
+	texture = {'0',
+	'1',
+	'2',
+	'3',
+	'4',
+	'5',
+	'6',
+	'7'
+	},
+	texture2 = {'8',
+	'9',
+	'10'
 	}
 }

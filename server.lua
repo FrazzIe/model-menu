@@ -40,8 +40,8 @@ end)
 RegisterServerEvent("mm:spawn2")
 AddEventHandler("mm:spawn2", function()
 	TriggerEvent("es:getPlayerFromId", source, function(target)
-		local executed_query = MySQL:executeQuery("SELECT mask,mask_txt,hair,hair_colour,shoe,shoe_txt,shirt,shirt_txt,hand,pants,pants_txt,undershirt,undershirt_txt,armour,armour_txt,head FROM modelmenu WHERE identifier = '@name'", {['@name'] = target.identifier})
-		local result = MySQL:getResults(executed_query, {'mask', 'mask_txt', 'hair', 'hair_colour', 'shoe', 'shoe_txt', 'shirt', 'shirt_txt', 'hand', 'pants', 'pants_txt', 'undershirt', 'undershirt_txt', 'armour', 'armour_txt', 'head'})
+		local executed_query = MySQL:executeQuery("SELECT mask,mask_txt,hair,hair_colour,shoe,shoe_txt,shirt,shirt_txt,hand,pants,pants_txt,undershirt,undershirt_txt,armour,armour_txt,head,helmet,helmet_txt,glasses,glasses_txt FROM modelmenu WHERE identifier = '@name'", {['@name'] = target.identifier})
+		local result = MySQL:getResults(executed_query, {'mask', 'mask_txt', 'hair', 'hair_colour', 'shoe', 'shoe_txt', 'shirt', 'shirt_txt', 'hand', 'pants', 'pants_txt', 'undershirt', 'undershirt_txt', 'armour', 'armour_txt', 'head', 'helmet', 'helmet_txt', 'glasses', 'glasses_txt'})
 		local user = {
         hair = result[1].hair,
         hcolour = result[1].hair_colour,
@@ -58,7 +58,11 @@ AddEventHandler("mm:spawn2", function()
         mask_txt = result[1].mask_txt,
         head = result[1].head,
         armour = result[1].armour,
-        armour_txt = result[1].armour_txt
+        armour_txt = result[1].armour_txt,
+        helmet = result[1].helmet,
+        helmet_txt = result[1].helmet_txt,
+        glasses = result[1].glasses,
+        glasses_txt = result[1].glasses_txt
 		}
 		TriggerClientEvent("mm:changeeverything_spawn", source, user)
 	end)
@@ -125,7 +129,7 @@ end)
 RegisterServerEvent("mm:saveeverything")
 AddEventHandler("mm:saveeverything",function(user)
 	TriggerEvent('es:getPlayerFromId', source, function(target)
-		local executed_query = MySQL:executeQuery("UPDATE modelmenu SET armour='@armour', armour_txt='@atxt', head='@head', mask='@mask', mask_txt='@mtxt', hair='@hair', hair_colour='@hcolour', shirt='@shirt', shirt_txt='@stxt', hand='@hand', shoe='@shoe', shoe_txt='@shtxt', pants='@pants', pants_txt='@ptxt', undershirt='@undershirt', undershirt_txt='@ustxt' WHERE identifier='@user'",{['@armour']= user.armour,['@atxt']= user.armour_txt,['@head']= user.head,['@mask']= user.mask,['@mtxt']= user.mask_txt,['@hair']= user.hair,['@hcolour']= user.hcolour,['@shirt']= user.shirt,['@stxt']= user.shirt_txt,['@hand']= user.hand,['@shoe']= user.shoe,['@shtxt']= user.shoe_txt,['@pants']= user.pants,['@ptxt']= user.pants_txt,['@undershirt']= user.undershirt,['@ustxt']= user.undershirt_txt,['@user']= target.identifier})
+		local executed_query = MySQL:executeQuery("UPDATE modelmenu SET armour='@armour', armour_txt='@atxt', head='@head', mask='@mask', mask_txt='@mtxt', hair='@hair', hair_colour='@hcolour', shirt='@shirt', shirt_txt='@stxt', hand='@hand', shoe='@shoe', shoe_txt='@shtxt', pants='@pants', pants_txt='@ptxt', undershirt='@undershirt', undershirt_txt='@ustxt', helmet='@helmet', helmet_txt='@htxt', glasses='@glasses', glasses_txt='@gtxt' WHERE identifier='@user'",{['@armour']= user.armour,['@atxt']= user.armour_txt,['@head']= user.head,['@mask']= user.mask,['@mtxt']= user.mask_txt,['@hair']= user.hair,['@hcolour']= user.hcolour,['@shirt']= user.shirt,['@stxt']= user.shirt_txt,['@hand']= user.hand,['@shoe']= user.shoe,['@shtxt']= user.shoe_txt,['@pants']= user.pants,['@ptxt']= user.pants_txt,['@undershirt']= user.undershirt,['@ustxt']= user.undershirt_txt,['@helmet']= user.helmet,['@htxt']= user.helmet_txt,['@glasses']= user.glasses,['@gtxt']= user.glasses_txt,['@user']= target.identifier})
 		local executed_query2 = MySQL:executeQuery("SELECT identifier FROM modelmenu WHERE identifier='@user'",{['@user']= target.identifier})
 		local result = MySQL:getResults(executed_query2, {'identifier'}, "identifier")
 		if result[1].identifier ~= nil then
@@ -134,51 +138,4 @@ AddEventHandler("mm:saveeverything",function(user)
 			TriggerClientEvent("mm:changeeverything", source, user)
 		end
 	end)
-end)
-----------------------------------------------------------------------------------------------------------------
-RegisterServerEvent("mm:wearHat") --I didn't make any of this
-RegisterServerEvent("mm:wearPercing")
-RegisterServerEvent("mm:wearGlasses")
-RegisterServerEvent("mm:wearMask")
-------------------------------------------------------------------------------------------------------------------------
-AddEventHandler("mm:wearHat", function()
-    TriggerEvent('es:getPlayerFromId', source, function(user)
-        local accessory_query = MySQL:executeQuery("SELECT * FROM modelmenu WHERE identifier = '@username'", {['@username'] = user.identifier})
-        local accessory = MySQL:getResults(accessory_query, {'identifier','helmet', 'helmet_txt'}, "identifier")
-        if(accessory)then
-            for k,v in ipairs(accessory)do
-                if v.helmet ~= nil then
-                    TriggerClientEvent("mm:Hatwear", source, v)
-                end
-            end
-        end
-    end)
-end)
-
-AddEventHandler("mm:wearGlasses", function()
-    TriggerEvent('es:getPlayerFromId', source, function(user)
-        local accessory_query = MySQL:executeQuery("SELECT * FROM modelmenu WHERE identifier = '@username'", {['@username'] = user.identifier})
-        local accessory = MySQL:getResults(accessory_query, {'identifier','glasses', 'glasses_txt'}, "identifier")
-        if(accessory)then
-            for k,v in ipairs(accessory)do
-                if v.glasses ~= nil then
-                    TriggerClientEvent("mm:Glasseswear", source, v)
-                end
-            end
-        end
-    end)
-end)
-
-AddEventHandler("mm:wearPercing", function()
-    TriggerEvent('es:getPlayerFromId', source, function(user)
-        local accessory_query = MySQL:executeQuery("SELECT * FROM modelmenu WHERE identifier = '@username'", {['@username'] = user.identifier})
-        local accessory = MySQL:getResults(accessory_query, {'identifier','percing', 'Percing_txt'}, "identifier")
-        if(accessory)then
-            for k,v in ipairs(accessory)do
-                if v.percing ~= nil then
-                    TriggerClientEvent("mm:Percingwear", source, v)
-                end
-            end
-        end
-    end)
 end)

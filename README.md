@@ -9,9 +9,6 @@ A Menu that:
 * lets you fully customise models
 * Loads/Saves models to a database(MySQL)
 
-I only spent roughly 12 hours on this so message me if there are bugs
-
-
 ----------
 ## Changelog
 

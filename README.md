@@ -14,7 +14,7 @@ I only spent roughly 12 hours on this so message me if there are bugs
 
 ----------
 ## Changelog
-[quote]
+
 **Version 1.1**
 
 * Added an Accessories menu
@@ -63,7 +63,7 @@ I only spent roughly 12 hours on this so message me if there are bugs
 
 * Fixed changing hair colour not working
 * Fixed remove Earrings button not actually saving
-* Added 63 different hair colours [pic1](https://prnt.sc/fct3j7) [pic2](https://prnt.sc/fct3ny) [pic3](https://prnt.sc/fct3qx) [pic4](https://prnt.sc/fct3zx)[/quote]
+* Added 63 different hair colours [pic1](https://prnt.sc/fct3j7) [pic2](https://prnt.sc/fct3ny) [pic3](https://prnt.sc/fct3qx) [pic4](https://prnt.sc/fct3zx)
 
 ----------
 
@@ -85,7 +85,6 @@ If players spawn as mp_m_freemode_01 or mp_f_freemode_01 by default in your serv
 ```
 ----------
 
-[Github](https://github.com/FrazzIe/model-menu)
 [Download](https://github.com/FrazzIe/model-menu/archive/master.zip)
 
 ----------

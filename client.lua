@@ -102,7 +102,9 @@ AddEventHandler("mm:changeeverything_spawn",function(user)
     c_options.piercing = user.piercing
     c_options.piercing_txt = user.piercing_txt
 
-    SetPedComponentVariation(GetPlayerPed(-1), 0, tonumber(user.head), 0, 0) 
+    --SetPedComponentVariation(GetPlayerPed(-1), 0, tonumber(user.head), 0, 0) 
+    --The laziest way possible of doing this ^_^
+    SetPedHeadBlendData(GetPlayerPed(-1), tonumber(c_options.head), tonumber(c_options.head), 0, tonumber(c_options.head), tonumber(c_options.head), 0, 0.5, 0.5, 0.0, false)
     SetPedComponentVariation(GetPlayerPed(-1), 1, tonumber(user.mask), tonumber(user.mask_txt), 0)
     SetPedComponentVariation(GetPlayerPed(-1), 2, tonumber(user.hair), tonumber(user.hcolour), 0)
     SetPedComponentVariation(GetPlayerPed(-1), 6, tonumber(user.shoe), tonumber(user.shoe_txt), 0)
@@ -119,7 +121,9 @@ AddEventHandler("mm:changeeverything_spawn",function(user)
 end)
 RegisterNetEvent("mm:changeeverything") --Sets mask and texture when spawned
 AddEventHandler("mm:changeeverything",function(user)
-    SetPedComponentVariation(GetPlayerPed(-1), 0, tonumber(user.head), 0, 0) 
+    --SetPedComponentVariation(GetPlayerPed(-1), 0, tonumber(user.head), 0, 0)
+    --The laziest way possible of doing this ^_^
+    SetPedHeadBlendData(GetPlayerPed(-1), tonumber(c_options.head), tonumber(c_options.head), 0, tonumber(c_options.head), tonumber(c_options.head), 0, 0.5, 0.5, 0.0, false) 
     SetPedComponentVariation(GetPlayerPed(-1), 1, tonumber(user.mask), tonumber(user.mask_txt), 0)
     SetPedComponentVariation(GetPlayerPed(-1), 2, tonumber(user.hair), tonumber(user.hcolour), 0)
     SetPedComponentVariation(GetPlayerPed(-1), 6, tonumber(user.shoe), tonumber(user.shoe_txt), 0)
@@ -134,10 +138,15 @@ AddEventHandler("mm:changeeverything",function(user)
     SetPedPropIndex(GetPlayerPed(-1), 1, tonumber(user.glasses), tonumber(user.glasses_txt), 0)
     SetPedPropIndex(GetPlayerPed(-1), 2, tonumber(user.piercing), 0, 0)
     --SetPedHeadBlendData(Ped ped, int shapeFirstID, int shapeSecondID, int shapeThirdID, int skinFirstID, int skinSecondID, int skinThirdID, float shapeMix, float skinMix, float thirdMix, BOOL isParent)
-    --[[if(user.head == 2)then
+   --[[ if(user.head == 2)then
         SetPedHeadBlendData(GetPlayerPed(-1), 23, 3, 0, 23, 3, 0, 0.5, 0.5, 0.0, false)
-    elseif(user.head == 3)then
+    end
+    if(user.head == 3)then
         SetPedHeadBlendData(GetPlayerPed(-1), 35, 15, 0, 35, 15, 0, 0.5, 0.5, 0.0, false)
+    end
+    if(user.head == 14)then
+        SetPedHeadBlendData(GetPlayerPed(-1), 35, 24, 0, 35, 24, 0, 0.5, 0.5, 0.0, false)
+    end
     elseif(user.head == 4)then
         SetPedHeadBlendData(GetPlayerPed(-1), 25, 5, 0, 25, 5, 0, 0.5, 0.5, 0.0, false)
     elseif(user.head == 5)then
@@ -3042,7 +3051,7 @@ function Customisation()
     options.menu_subtitle = "Customise your character"
     ClearMenu()
     Menu.addButton("Accessories", "Accessories")
-    Menu.addButton("Head", "TempMaleHeadMenu")
+    Menu.addButton("Head", "HeadMenu")
     Menu.addButton("Hair", "MaleHairMenu")
     Menu.addButton("Shirt", "ShirtMenu")
     Menu.addButton("Undershirt", "MaleUndershirtMenu")
@@ -3060,7 +3069,7 @@ function FCustomisation()
     options.menu_subtitle = "Customise your character"
     ClearMenu()
     Menu.addButton("Accessories", "FAccessories")
-    Menu.addButton("Head", "TempFemaleHeadMenu")
+    Menu.addButton("Head", "FemaleHeadMenu")
     Menu.addButton("Hair", "FemaleHairMenu")
     Menu.addButton("Shirt", "FemaleShirtMenu")
     Menu.addButton("Undershirt", "FemaleUndershirtMenu")
@@ -3072,39 +3081,6 @@ function FCustomisation()
 end
 --Females 34,45,33,21
 --Males 1,12,13,22,42,43,44
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
- ---Customisation Menu
- ---Temp-Head
- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
- -function TempMaleHeadMenu()
- -    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
- -    options.menu_subtitle = "Heads"
- -    ClearMenu()
- -    Menu.addButton(head.mname[Menu.buttonCount+1], "savehead", head.mhead[Menu.buttonCount+1])
- -    Menu.addButton(head.mname[Menu.buttonCount+1], "savehead", head.mhead[Menu.buttonCount+1])
- -    Menu.addButton(head.mname[Menu.buttonCount+1], "savehead", head.mhead[Menu.buttonCount+1])
- -    Menu.addButton(head.mname[Menu.buttonCount+1], "savehead", head.mhead[Menu.buttonCount+1])
- -    Menu.addButton(head.mname[Menu.buttonCount+1], "savehead", head.mhead[Menu.buttonCount+1])
- -    Menu.addButton(head.mname[Menu.buttonCount+1], "savehead", head.mhead[Menu.buttonCount+1])
- -    Menu.addButton(head.mname[Menu.buttonCount+1], "savehead", head.mhead[Menu.buttonCount+1])
- -    Menu.addButton(head.mname[Menu.buttonCount+1], "savehead", head.mhead[Menu.buttonCount+1])
- -    Menu.addButton("Return","Customisation",nil)
- -end
- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
- ---Customisation Menu
- ---Temp-Head
- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
- -function TempFemaleHeadMenu()
- -    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
- -    options.menu_subtitle = "Heads"
- -    ClearMenu()
- -    Menu.addButton(head.fname[Menu.buttonCount+1], "savehead", head.fhead[Menu.buttonCount+1])
- -    Menu.addButton(head.fname[Menu.buttonCount+1], "savehead", head.fhead[Menu.buttonCount+1])
- -    Menu.addButton(head.fname[Menu.buttonCount+1], "savehead", head.fhead[Menu.buttonCount+1])
- -    Menu.addButton(head.fname[Menu.buttonCount+1], "savehead", head.fhead[Menu.buttonCount+1])
- -    Menu.addButton("Return","FCustomisation",nil)
- -end
- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Customisation Menu       Page 1 of 4
 --Head
@@ -3233,10 +3209,6 @@ function FemaleHeadMenu3()
     Menu.addButton(heads.fname_pg3[Menu.buttonCount+1], "savehead", heads.fdrawable_pg3[Menu.buttonCount+1])
     Menu.addButton(heads.fname_pg3[Menu.buttonCount+1], "savehead", heads.fdrawable_pg3[Menu.buttonCount+1])
     Menu.addButton(heads.fname_pg3[Menu.buttonCount+1], "savehead", heads.fdrawable_pg3[Menu.buttonCount+1])
-    Menu.addButton(heads.fname_pg3[Menu.buttonCount+1], "savehead", heads.fdrawable_pg3[Menu.buttonCount+1])
-    Menu.addButton(heads.fname_pg3[Menu.buttonCount+1], "savehead", heads.fdrawable_pg3[Menu.buttonCount+1])
-    Menu.addButton(heads.fname_pg3[Menu.buttonCount+1], "savehead", heads.fdrawable_pg3[Menu.buttonCount+1])
-    Menu.addButton(heads.fname_pg3[Menu.buttonCount+1], "savehead", heads.fdrawable_pg3[Menu.buttonCount+1])
     Menu.addButton("Next Page","FemaleHeadMenu",nil)
     Menu.addButton("Previous Page","FemaleHeadMenu2",nil)
     Menu.addButton("Return","FCustomisation",nil)
@@ -3246,7 +3218,9 @@ end
 --]]
 function savehead(head) --Sets Players head in database
     c_options.head = head
-    SetPedComponentVariation(GetPlayerPed(-1), 0, tonumber(c_options.head), 0, 2)
+    --The laziest way possible of doing this ^_^
+    SetPedHeadBlendData(GetPlayerPed(-1), tonumber(c_options.head), tonumber(c_options.head), 0, tonumber(c_options.head), tonumber(c_options.head), 0, 0.5, 0.5, 0.0, false)
+    --SetPedComponentVariation(GetPlayerPed(-1), 0, tonumber(c_options.head), 0, 2)
 end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Customisation Menu       Page 1 of 6

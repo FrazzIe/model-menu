@@ -3042,7 +3042,7 @@ function Customisation()
     options.menu_subtitle = "Customise your character"
     ClearMenu()
     Menu.addButton("Accessories", "Accessories")
-    Menu.addButton("Head", "HeadMenu")
+    Menu.addButton("Head", "TempMaleHeadMenu")
     Menu.addButton("Hair", "MaleHairMenu")
     Menu.addButton("Shirt", "ShirtMenu")
     Menu.addButton("Undershirt", "MaleUndershirtMenu")
@@ -3060,7 +3060,7 @@ function FCustomisation()
     options.menu_subtitle = "Customise your character"
     ClearMenu()
     Menu.addButton("Accessories", "FAccessories")
-    Menu.addButton("Head", "FemaleHeadMenu")
+    Menu.addButton("Head", "TempFemaleHeadMenu")
     Menu.addButton("Hair", "FemaleHairMenu")
     Menu.addButton("Shirt", "FemaleShirtMenu")
     Menu.addButton("Undershirt", "FemaleUndershirtMenu")
@@ -3072,6 +3072,39 @@ function FCustomisation()
 end
 --Females 34,45,33,21
 --Males 1,12,13,22,42,43,44
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ ---Customisation Menu
+ ---Temp-Head
+ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ -function TempMaleHeadMenu()
+ -    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+ -    options.menu_subtitle = "Heads"
+ -    ClearMenu()
+ -    Menu.addButton(head.mname[Menu.buttonCount+1], "savehead", head.mhead[Menu.buttonCount+1])
+ -    Menu.addButton(head.mname[Menu.buttonCount+1], "savehead", head.mhead[Menu.buttonCount+1])
+ -    Menu.addButton(head.mname[Menu.buttonCount+1], "savehead", head.mhead[Menu.buttonCount+1])
+ -    Menu.addButton(head.mname[Menu.buttonCount+1], "savehead", head.mhead[Menu.buttonCount+1])
+ -    Menu.addButton(head.mname[Menu.buttonCount+1], "savehead", head.mhead[Menu.buttonCount+1])
+ -    Menu.addButton(head.mname[Menu.buttonCount+1], "savehead", head.mhead[Menu.buttonCount+1])
+ -    Menu.addButton(head.mname[Menu.buttonCount+1], "savehead", head.mhead[Menu.buttonCount+1])
+ -    Menu.addButton(head.mname[Menu.buttonCount+1], "savehead", head.mhead[Menu.buttonCount+1])
+ -    Menu.addButton("Return","Customisation",nil)
+ -end
+ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ ---Customisation Menu
+ ---Temp-Head
+ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ -function TempFemaleHeadMenu()
+ -    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+ -    options.menu_subtitle = "Heads"
+ -    ClearMenu()
+ -    Menu.addButton(head.fname[Menu.buttonCount+1], "savehead", head.fhead[Menu.buttonCount+1])
+ -    Menu.addButton(head.fname[Menu.buttonCount+1], "savehead", head.fhead[Menu.buttonCount+1])
+ -    Menu.addButton(head.fname[Menu.buttonCount+1], "savehead", head.fhead[Menu.buttonCount+1])
+ -    Menu.addButton(head.fname[Menu.buttonCount+1], "savehead", head.fhead[Menu.buttonCount+1])
+ -    Menu.addButton("Return","FCustomisation",nil)
+ -end
+ -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Customisation Menu       Page 1 of 4
 --Head

@@ -101,6 +101,7 @@ AddEventHandler("mm:changeeverything_spawn",function(user)
     c_options.glasses_txt = user.glasses_txt
     c_options.piercing = user.piercing
     c_options.piercing_txt = user.piercing_txt
+
     SetPedComponentVariation(GetPlayerPed(-1), 0, tonumber(user.head), 0, 0) 
     SetPedComponentVariation(GetPlayerPed(-1), 1, tonumber(user.mask), tonumber(user.mask_txt), 0)
     SetPedComponentVariation(GetPlayerPed(-1), 2, tonumber(user.hair), tonumber(user.hcolour), 0)
@@ -132,6 +133,77 @@ AddEventHandler("mm:changeeverything",function(user)
     SetPedPropIndex(GetPlayerPed(-1), 0, tonumber(user.helmet), tonumber(user.helmet_txt), 0)
     SetPedPropIndex(GetPlayerPed(-1), 1, tonumber(user.glasses), tonumber(user.glasses_txt), 0)
     SetPedPropIndex(GetPlayerPed(-1), 2, tonumber(user.piercing), 0, 0)
+    --SetPedHeadBlendData(Ped ped, int shapeFirstID, int shapeSecondID, int shapeThirdID, int skinFirstID, int skinSecondID, int skinThirdID, float shapeMix, float skinMix, float thirdMix, BOOL isParent)
+    --[[if(user.head == 2)then
+        SetPedHeadBlendData(GetPlayerPed(-1), 23, 3, 0, 23, 3, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 3)then
+        SetPedHeadBlendData(GetPlayerPed(-1), 35, 15, 0, 35, 15, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 4)then
+        SetPedHeadBlendData(GetPlayerPed(-1), 25, 5, 0, 25, 5, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 5)then
+        SetPedHeadBlendData(GetPlayerPed(-1), 29, 11, 0, 29, 11, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 6)then
+        SetPedHeadBlendData(GetPlayerPed(-1), 27, 18, 0, 27, 18, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 7)then
+        SetPedHeadBlendData(GetPlayerPed(-1), 39, 17, 0, 39, 17, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 8)then
+        SetPedHeadBlendData(GetPlayerPed(-1), 30, 19, 0, 30, 19, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 9)then
+        SetPedHeadBlendData(GetPlayerPed(-1), 29, 19, 0, 29, 19, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 10)then
+        SetPedHeadBlendData(GetPlayerPed(-1), 25, 5, 0, 25, 5, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 11)then
+        SetPedHeadBlendData(GetPlayerPed(-1), 26, 19, 0, 26, 19, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 14)then
+        SetPedHeadBlendData(GetPlayerPed(-1), 35, 24, 0, 35, 24, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 15)then
+        SetPedHeadBlendData(GetPlayerPed(-1), FemaleFace, MaleFace, 0, FemaleFace, MaleFace, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 16)then
+        SetPedHeadBlendData(GetPlayerPed(-1), FemaleFace, MaleFace, 0, FemaleFace, MaleFace, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 17)then
+        SetPedHeadBlendData(GetPlayerPed(-1), FemaleFace, MaleFace, 0, FemaleFace, MaleFace, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 18)then
+        SetPedHeadBlendData(GetPlayerPed(-1), FemaleFace, MaleFace, 0, FemaleFace, MaleFace, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 19)then
+        SetPedHeadBlendData(GetPlayerPed(-1), FemaleFace, MaleFace, 0, FemaleFace, MaleFace, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 20)then
+        SetPedHeadBlendData(GetPlayerPed(-1), FemaleFace, MaleFace, 0, FemaleFace, MaleFace, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 23)then
+        SetPedHeadBlendData(GetPlayerPed(-1), FemaleFace, MaleFace, 0, FemaleFace, MaleFace, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 24)then
+        SetPedHeadBlendData(GetPlayerPed(-1), FemaleFace, MaleFace, 0, FemaleFace, MaleFace, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 25)then
+        SetPedHeadBlendData(GetPlayerPed(-1), FemaleFace, MaleFace, 0, FemaleFace, MaleFace, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 26)then
+        SetPedHeadBlendData(GetPlayerPed(-1), FemaleFace, MaleFace, 0, FemaleFace, MaleFace, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 27)then
+        SetPedHeadBlendData(GetPlayerPed(-1), FemaleFace, MaleFace, 0, FemaleFace, MaleFace, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 28)then
+        SetPedHeadBlendData(GetPlayerPed(-1), FemaleFace, MaleFace, 0, FemaleFace, MaleFace, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 29)then
+        SetPedHeadBlendData(GetPlayerPed(-1), FemaleFace, MaleFace, 0, FemaleFace, MaleFace, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 30)then
+        SetPedHeadBlendData(GetPlayerPed(-1), FemaleFace, MaleFace, 0, FemaleFace, MaleFace, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 31)then
+        SetPedHeadBlendData(GetPlayerPed(-1), FemaleFace, MaleFace, 0, FemaleFace, MaleFace, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 32)then
+        SetPedHeadBlendData(GetPlayerPed(-1), FemaleFace, MaleFace, 0, FemaleFace, MaleFace, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 35)then
+        SetPedHeadBlendData(GetPlayerPed(-1), FemaleFace, MaleFace, 0, FemaleFace, MaleFace, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 36)then
+        SetPedHeadBlendData(GetPlayerPed(-1), FemaleFace, MaleFace, 0, FemaleFace, MaleFace, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 37)then
+        SetPedHeadBlendData(GetPlayerPed(-1), FemaleFace, MaleFace, 0, FemaleFace, MaleFace, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 38)then
+        SetPedHeadBlendData(GetPlayerPed(-1), FemaleFace, MaleFace, 0, FemaleFace, MaleFace, 0, 0.5, 0.5, 0.0, false)
+    elseif(user.head == 39)then
+        SetPedHeadBlendData(GetPlayerPed(-1), FemaleFace, MaleFace, 0, FemaleFace, MaleFace, 0, 0.5, 0.5, 0.0, false) 
+    elseif(user.head == 40)then
+        SetPedHeadBlendData(GetPlayerPed(-1), FemaleFace, MaleFace, 0, FemaleFace, MaleFace, 0, 0.5, 0.5, 0.0, false) 
+    elseif(user.head == 41)then
+        SetPedHeadBlendData(GetPlayerPed(-1), FemaleFace, MaleFace, 0, FemaleFace, MaleFace, 0, 0.5, 0.5, 0.0, false) --34
+    else
+    end--]]
 end)
 
 function changemodel(model)
@@ -2535,7 +2607,7 @@ function sethelmet(helmet)
     helmetTextures()
 end
 
-function sethelmet(helmet)
+function fsethelmet(helmet)
     c_options.helmet = helmet
     --c_options.helmet_txt = helmet_txt
     SetPedPropIndex(GetPlayerPed(-1), 0, tonumber(c_options.helmet), 0, 0)
@@ -2970,8 +3042,7 @@ function Customisation()
     options.menu_subtitle = "Customise your character"
     ClearMenu()
     Menu.addButton("Accessories", "Accessories")
-    --Menu.addButton("Head", "HeadMenu")
-    Menu.addButton("Head", "TempMaleHeadMenu")
+    Menu.addButton("Head", "HeadMenu")
     Menu.addButton("Hair", "MaleHairMenu")
     Menu.addButton("Shirt", "ShirtMenu")
     Menu.addButton("Undershirt", "MaleUndershirtMenu")
@@ -2989,8 +3060,7 @@ function FCustomisation()
     options.menu_subtitle = "Customise your character"
     ClearMenu()
     Menu.addButton("Accessories", "FAccessories")
-    --Menu.addButton("Head", "HeadMenu")
-    Menu.addButton("Head", "TempFemaleHeadMenu")
+    Menu.addButton("Head", "FemaleHeadMenu")
     Menu.addButton("Hair", "FemaleHairMenu")
     Menu.addButton("Shirt", "FemaleShirtMenu")
     Menu.addButton("Undershirt", "FemaleUndershirtMenu")
@@ -3003,44 +3073,12 @@ end
 --Females 34,45,33,21
 --Males 1,12,13,22,42,43,44
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---Customisation Menu
---Temp-Head
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function TempMaleHeadMenu()
-    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
-    options.menu_subtitle = "Heads"
-    ClearMenu()
-    Menu.addButton(head.mname[Menu.buttonCount+1], "savehead", head.mhead[Menu.buttonCount+1])
-    Menu.addButton(head.mname[Menu.buttonCount+1], "savehead", head.mhead[Menu.buttonCount+1])
-    Menu.addButton(head.mname[Menu.buttonCount+1], "savehead", head.mhead[Menu.buttonCount+1])
-    Menu.addButton(head.mname[Menu.buttonCount+1], "savehead", head.mhead[Menu.buttonCount+1])
-    Menu.addButton(head.mname[Menu.buttonCount+1], "savehead", head.mhead[Menu.buttonCount+1])
-    Menu.addButton(head.mname[Menu.buttonCount+1], "savehead", head.mhead[Menu.buttonCount+1])
-    Menu.addButton(head.mname[Menu.buttonCount+1], "savehead", head.mhead[Menu.buttonCount+1])
-    Menu.addButton(head.mname[Menu.buttonCount+1], "savehead", head.mhead[Menu.buttonCount+1])
-    Menu.addButton("Return","Customisation",nil)
-end
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---Customisation Menu
---Temp-Head
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function TempFemaleHeadMenu()
-    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
-    options.menu_subtitle = "Heads"
-    ClearMenu()
-    Menu.addButton(head.fname[Menu.buttonCount+1], "savehead", head.fhead[Menu.buttonCount+1])
-    Menu.addButton(head.fname[Menu.buttonCount+1], "savehead", head.fhead[Menu.buttonCount+1])
-    Menu.addButton(head.fname[Menu.buttonCount+1], "savehead", head.fhead[Menu.buttonCount+1])
-    Menu.addButton(head.fname[Menu.buttonCount+1], "savehead", head.fhead[Menu.buttonCount+1])
-    Menu.addButton("Return","FCustomisation",nil)
-end
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---Customisation Menu       Page 1 of 6
+--Customisation Menu       Page 1 of 4
 --Head
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---[[function HeadMenu()
+function HeadMenu()
 	DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
-    options.menu_subtitle = "Heads                   Page 1 of 6"
+    options.menu_subtitle = "Heads                   Page 1 of 4"
     ClearMenu()
     Menu.addButton(heads.name_pg1[Menu.buttonCount+1], "savehead", heads.drawable_pg1[Menu.buttonCount+1])
     Menu.addButton(heads.name_pg1[Menu.buttonCount+1], "savehead", heads.drawable_pg1[Menu.buttonCount+1])
@@ -3051,16 +3089,16 @@ end
     Menu.addButton(heads.name_pg1[Menu.buttonCount+1], "savehead", heads.drawable_pg1[Menu.buttonCount+1])
     Menu.addButton(heads.name_pg1[Menu.buttonCount+1], "savehead", heads.drawable_pg1[Menu.buttonCount+1])
     Menu.addButton("Next Page","HeadMenu2",nil)
-    Menu.addButton("Previous Page","HeadMenu6",nil)
+    Menu.addButton("Previous Page","HeadMenu4",nil)
     Menu.addButton("Return","Customisation",nil)
 end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---Customisation Menu       Page 2 of 6
+--Customisation Menu       Page 2 of 4
 --Head
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function HeadMenu2()
 	DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
-    options.menu_subtitle = "Heads                   Page 2 of 6"
+    options.menu_subtitle = "Heads                   Page 2 of 4"
     ClearMenu()
     Menu.addButton(heads.name_pg2[Menu.buttonCount+1], "savehead", heads.drawable_pg2[Menu.buttonCount+1])
     Menu.addButton(heads.name_pg2[Menu.buttonCount+1], "savehead", heads.drawable_pg2[Menu.buttonCount+1])
@@ -3075,12 +3113,12 @@ function HeadMenu2()
     Menu.addButton("Return","Customisation",nil)
 end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---Customisation Menu       Page 3 of 6
+--Customisation Menu       Page 3 of 4
 --Head
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function HeadMenu3()
 	DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
-    options.menu_subtitle = "Heads                   Page 3 of 6"
+    options.menu_subtitle = "Heads                   Page 3 of 4"
     ClearMenu()
     Menu.addButton(heads.name_pg3[Menu.buttonCount+1], "savehead", heads.drawable_pg3[Menu.buttonCount+1])
     Menu.addButton(heads.name_pg3[Menu.buttonCount+1], "savehead", heads.drawable_pg3[Menu.buttonCount+1])
@@ -3095,65 +3133,81 @@ function HeadMenu3()
     Menu.addButton("Return","Customisation",nil)
 end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---Customisation Menu       Page 4 of 6
+--Customisation Menu       Page 4 of 4
 --Head
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function HeadMenu4()
 	DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
-    options.menu_subtitle = "Heads                   Page 4 of 6"
+    options.menu_subtitle = "Heads                   Page 4 of 4"
     ClearMenu()
     Menu.addButton(heads.name_pg4[Menu.buttonCount+1], "savehead", heads.drawable_pg4[Menu.buttonCount+1])
-    Menu.addButton(heads.name_pg4[Menu.buttonCount+1], "savehead", heads.drawable_pg4[Menu.buttonCount+1])
-    Menu.addButton(heads.name_pg4[Menu.buttonCount+1], "savehead", heads.drawable_pg4[Menu.buttonCount+1])
-    Menu.addButton(heads.name_pg4[Menu.buttonCount+1], "savehead", heads.drawable_pg4[Menu.buttonCount+1])
-    Menu.addButton(heads.name_pg4[Menu.buttonCount+1], "savehead", heads.drawable_pg4[Menu.buttonCount+1])
-    Menu.addButton(heads.name_pg4[Menu.buttonCount+1], "savehead", heads.drawable_pg4[Menu.buttonCount+1])
-    Menu.addButton(heads.name_pg4[Menu.buttonCount+1], "savehead", heads.drawable_pg4[Menu.buttonCount+1])
-    Menu.addButton(heads.name_pg4[Menu.buttonCount+1], "savehead", heads.drawable_pg4[Menu.buttonCount+1])
-    Menu.addButton("Next Page","HeadMenu5",nil)
+    Menu.addButton("Next Page","HeadMenu",nil)
     Menu.addButton("Previous Page","HeadMenu3",nil)
     Menu.addButton("Return","Customisation",nil)
 end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---Customisation Menu       Page 5 of 6
+--Customisation Menu       Page 1 of 3
 --Head
+--Female
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function HeadMenu5()
-	DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
-    options.menu_subtitle = "Heads                   Page 5 of 6"
+function FemaleHeadMenu()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Heads                   Page 1 of 3"
     ClearMenu()
-    Menu.addButton(heads.name_pg5[Menu.buttonCount+1], "savehead", heads.drawable_pg5[Menu.buttonCount+1])
-    Menu.addButton(heads.name_pg5[Menu.buttonCount+1], "savehead", heads.drawable_pg5[Menu.buttonCount+1])
-    Menu.addButton(heads.name_pg5[Menu.buttonCount+1], "savehead", heads.drawable_pg5[Menu.buttonCount+1])
-    Menu.addButton(heads.name_pg5[Menu.buttonCount+1], "savehead", heads.drawable_pg5[Menu.buttonCount+1])
-    Menu.addButton(heads.name_pg5[Menu.buttonCount+1], "savehead", heads.drawable_pg5[Menu.buttonCount+1])
-    Menu.addButton(heads.name_pg5[Menu.buttonCount+1], "savehead", heads.drawable_pg5[Menu.buttonCount+1])
-    Menu.addButton(heads.name_pg5[Menu.buttonCount+1], "savehead", heads.drawable_pg5[Menu.buttonCount+1])
-    Menu.addButton(heads.name_pg5[Menu.buttonCount+1], "savehead", heads.drawable_pg5[Menu.buttonCount+1])
-    Menu.addButton("Next Page","HeadMenu6",nil)
-    Menu.addButton("Previous Page","HeadMenu4",nil)
-    Menu.addButton("Return","Customisation",nil)
+    Menu.addButton(heads.fname_pg1[Menu.buttonCount+1], "savehead", heads.fdrawable_pg1[Menu.buttonCount+1])
+    Menu.addButton(heads.fname_pg1[Menu.buttonCount+1], "savehead", heads.fdrawable_pg1[Menu.buttonCount+1])
+    Menu.addButton(heads.fname_pg1[Menu.buttonCount+1], "savehead", heads.fdrawable_pg1[Menu.buttonCount+1])
+    Menu.addButton(heads.fname_pg1[Menu.buttonCount+1], "savehead", heads.fdrawable_pg1[Menu.buttonCount+1])
+    Menu.addButton(heads.fname_pg1[Menu.buttonCount+1], "savehead", heads.fdrawable_pg1[Menu.buttonCount+1])
+    Menu.addButton(heads.fname_pg1[Menu.buttonCount+1], "savehead", heads.fdrawable_pg1[Menu.buttonCount+1])
+    Menu.addButton(heads.fname_pg1[Menu.buttonCount+1], "savehead", heads.fdrawable_pg1[Menu.buttonCount+1])
+    Menu.addButton(heads.fname_pg1[Menu.buttonCount+1], "savehead", heads.fdrawable_pg1[Menu.buttonCount+1])
+    Menu.addButton("Next Page","FemaleHeadMenu2",nil)
+    Menu.addButton("Previous Page","FemaleHeadMenu3",nil)
+    Menu.addButton("Return","FCustomisation",nil)
 end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---Customisation Menu       Page 6 of 6
+--Customisation Menu       Page 2 of 3
 --Head
+--Female
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function HeadMenu6()
-	DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
-    options.menu_subtitle = "Heads                   Page 6 of 6"
+function FemaleHeadMenu2()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Heads                   Page 2 of 3"
     ClearMenu()
-    Menu.addButton(heads.name_pg6[Menu.buttonCount+1], "savehead", heads.drawable_pg6[Menu.buttonCount+1])
-    Menu.addButton(heads.name_pg6[Menu.buttonCount+1], "savehead", heads.drawable_pg6[Menu.buttonCount+1])
-    Menu.addButton(heads.name_pg6[Menu.buttonCount+1], "savehead", heads.drawable_pg6[Menu.buttonCount+1])
-    Menu.addButton(heads.name_pg6[Menu.buttonCount+1], "savehead", heads.drawable_pg6[Menu.buttonCount+1])
-    Menu.addButton(heads.name_pg6[Menu.buttonCount+1], "savehead", heads.drawable_pg6[Menu.buttonCount+1])
-    Menu.addButton(heads.name_pg6[Menu.buttonCount+1], "savehead", heads.drawable_pg6[Menu.buttonCount+1])
-    Menu.addButton(heads.name_pg6[Menu.buttonCount+1], "savehead", heads.drawable_pg6[Menu.buttonCount+1])
-    Menu.addButton(heads.name_pg6[Menu.buttonCount+1], "savehead", heads.drawable_pg6[Menu.buttonCount+1])
-    Menu.addButton("Next Page","HeadMenu",nil)
-    Menu.addButton("Previous Page","HeadMenu5",nil)
-    Menu.addButton("Return","Customisation",nil)
-end--]]
+    Menu.addButton(heads.fname_pg2[Menu.buttonCount+1], "savehead", heads.fdrawable_pg2[Menu.buttonCount+1])
+    Menu.addButton(heads.fname_pg2[Menu.buttonCount+1], "savehead", heads.fdrawable_pg2[Menu.buttonCount+1])
+    Menu.addButton(heads.fname_pg2[Menu.buttonCount+1], "savehead", heads.fdrawable_pg2[Menu.buttonCount+1])
+    Menu.addButton(heads.fname_pg2[Menu.buttonCount+1], "savehead", heads.fdrawable_pg2[Menu.buttonCount+1])
+    Menu.addButton(heads.fname_pg2[Menu.buttonCount+1], "savehead", heads.fdrawable_pg2[Menu.buttonCount+1])
+    Menu.addButton(heads.fname_pg2[Menu.buttonCount+1], "savehead", heads.fdrawable_pg2[Menu.buttonCount+1])
+    Menu.addButton(heads.fname_pg2[Menu.buttonCount+1], "savehead", heads.fdrawable_pg2[Menu.buttonCount+1])
+    Menu.addButton(heads.fname_pg2[Menu.buttonCount+1], "savehead", heads.fdrawable_pg2[Menu.buttonCount+1])
+    Menu.addButton("Next Page","FemaleHeadMenu3",nil)
+    Menu.addButton("Previous Page","FemaleHeadMenu",nil)
+    Menu.addButton("Return","FCustomisation",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Customisation Menu       Page 3 of 3
+--Head
+--Female
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function FemaleHeadMenu3()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Heads                   Page 3 of 3"
+    ClearMenu()
+    Menu.addButton(heads.fname_pg3[Menu.buttonCount+1], "savehead", heads.fdrawable_pg3[Menu.buttonCount+1])
+    Menu.addButton(heads.fname_pg3[Menu.buttonCount+1], "savehead", heads.fdrawable_pg3[Menu.buttonCount+1])
+    Menu.addButton(heads.fname_pg3[Menu.buttonCount+1], "savehead", heads.fdrawable_pg3[Menu.buttonCount+1])
+    Menu.addButton(heads.fname_pg3[Menu.buttonCount+1], "savehead", heads.fdrawable_pg3[Menu.buttonCount+1])
+    Menu.addButton(heads.fname_pg3[Menu.buttonCount+1], "savehead", heads.fdrawable_pg3[Menu.buttonCount+1])
+    Menu.addButton(heads.fname_pg3[Menu.buttonCount+1], "savehead", heads.fdrawable_pg3[Menu.buttonCount+1])
+    Menu.addButton(heads.fname_pg3[Menu.buttonCount+1], "savehead", heads.fdrawable_pg3[Menu.buttonCount+1])
+    Menu.addButton(heads.fname_pg3[Menu.buttonCount+1], "savehead", heads.fdrawable_pg3[Menu.buttonCount+1])
+    Menu.addButton("Next Page","FemaleHeadMenu",nil)
+    Menu.addButton("Previous Page","FemaleHeadMenu2",nil)
+    Menu.addButton("Return","FCustomisation",nil)
+end
 --[[
 	Head Functions
 --]]

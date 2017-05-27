@@ -39,6 +39,7 @@ mp_check = false
 shirt_help = false
 model_info = false
 texture_help = false
+hair_help = false
 secondsRemaining = 0
 secondsRemaining2 = 0
 
@@ -106,7 +107,8 @@ AddEventHandler("mm:changeeverything_spawn",function(user)
     --The laziest way possible of doing this ^_^
     SetPedHeadBlendData(GetPlayerPed(-1), tonumber(c_options.head), tonumber(c_options.head), 0, tonumber(c_options.head), tonumber(c_options.head), 0, 0.5, 0.5, 0.0, false)
     SetPedComponentVariation(GetPlayerPed(-1), 1, tonumber(user.mask), tonumber(user.mask_txt), 0)
-    SetPedComponentVariation(GetPlayerPed(-1), 2, tonumber(user.hair), tonumber(user.hcolour), 0)
+    SetPedComponentVariation(GetPlayerPed(-1), 2, tonumber(user.hair), 0, 1)
+    SetPedHairColor(GetPlayerPed(-1), tonumber(user.hcolour), tonumber(user.hcolour))
     SetPedComponentVariation(GetPlayerPed(-1), 6, tonumber(user.shoe), tonumber(user.shoe_txt), 0)
     SetPedComponentVariation(GetPlayerPed(-1), 11, 0, 240, 0)
     SetPedComponentVariation(GetPlayerPed(-1), 8, 0, 240, 0)
@@ -125,7 +127,8 @@ AddEventHandler("mm:changeeverything",function(user)
     --The laziest way possible of doing this ^_^
     SetPedHeadBlendData(GetPlayerPed(-1), tonumber(c_options.head), tonumber(c_options.head), 0, tonumber(c_options.head), tonumber(c_options.head), 0, 0.5, 0.5, 0.0, false) 
     SetPedComponentVariation(GetPlayerPed(-1), 1, tonumber(user.mask), tonumber(user.mask_txt), 0)
-    SetPedComponentVariation(GetPlayerPed(-1), 2, tonumber(user.hair), tonumber(user.hcolour), 0)
+    SetPedComponentVariation(GetPlayerPed(-1), 2, tonumber(user.hair), 0, 1)
+    SetPedHairColor(GetPlayerPed(-1), tonumber(user.hcolour), tonumber(user.hcolour))
     SetPedComponentVariation(GetPlayerPed(-1), 6, tonumber(user.shoe), tonumber(user.shoe_txt), 0)
     SetPedComponentVariation(GetPlayerPed(-1), 11, 0, 240, 0)
     SetPedComponentVariation(GetPlayerPed(-1), 8, 0, 240, 0)
@@ -1791,6 +1794,7 @@ function ripglasses()
 	ClearPedProp(GetPlayerPed(-1),1)
 end
 function ripearrings()
+    c_options.piercing = 240
 	ClearPedProp(GetPlayerPed(-1),2)
 end
 function ripmask()
@@ -3228,6 +3232,7 @@ end
 --Male
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function MaleHairMenu()
+    hair_help = false
 	DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
     options.menu_subtitle = "Hair                      Page 1 of 4"
     ClearMenu()
@@ -3308,6 +3313,7 @@ end
 --Female
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function FemaleHairMenu()
+    hair_help = false
     DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
     options.menu_subtitle = "Hair                      Page 1 of 4"
     ClearMenu()
@@ -3388,16 +3394,215 @@ end
 --Hair
 --Colour
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function fHairColour()
-    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
-    options.menu_subtitle = "Hair Colour"
+function HairColour()
+    hair_help = true
+	DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Hair Colour             Page 1 of 10"
     ClearMenu()
-    Menu.addButton(hair.hcolour_fname[Menu.buttonCount+1], "savecolour", hair.hcolour[Menu.buttonCount+1])
-    Menu.addButton(hair.hcolour_fname[Menu.buttonCount+1], "savecolour", hair.hcolour[Menu.buttonCount+1])
-    Menu.addButton(hair.hcolour_fname[Menu.buttonCount+1], "savecolour", hair.hcolour[Menu.buttonCount+1])
-    Menu.addButton(hair.hcolour_fname[Menu.buttonCount+1], "savecolour", hair.hcolour[Menu.buttonCount+1])
-    Menu.addButton(hair.hcolour_fname[Menu.buttonCount+1], "savecolour", hair.hcolour[Menu.buttonCount+1])
-    Menu.addButton(hair.hcolour_fname[Menu.buttonCount+1], "savecolour", hair.hcolour[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name[Menu.buttonCount+1], "savecolour", hair.hcolour[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name[Menu.buttonCount+1], "savecolour", hair.hcolour[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name[Menu.buttonCount+1], "savecolour", hair.hcolour[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name[Menu.buttonCount+1], "savecolour", hair.hcolour[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name[Menu.buttonCount+1], "savecolour", hair.hcolour[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name[Menu.buttonCount+1], "savecolour", hair.hcolour[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name[Menu.buttonCount+1], "savecolour", hair.hcolour[Menu.buttonCount+1])
+    Menu.addButton("Next Page","HairColour2",nil)
+    Menu.addButton("Previous Page","HairColour10",nil)
+    Menu.addButton("Return","MaleHairMenu",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Customisation Menu
+--Hair
+--Colour
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function HairColour2()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Hair Colour             Page 2 of 10"
+    ClearMenu()
+    Menu.addButton(hair.hcolour_name2[Menu.buttonCount+1], "savecolour", hair.hcolour2[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name2[Menu.buttonCount+1], "savecolour", hair.hcolour2[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name2[Menu.buttonCount+1], "savecolour", hair.hcolour2[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name2[Menu.buttonCount+1], "savecolour", hair.hcolour2[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name2[Menu.buttonCount+1], "savecolour", hair.hcolour2[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name2[Menu.buttonCount+1], "savecolour", hair.hcolour2[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name2[Menu.buttonCount+1], "savecolour", hair.hcolour2[Menu.buttonCount+1])
+    Menu.addButton("Next Page","HairColour3",nil)
+    Menu.addButton("Previous Page","HairColour",nil)
+    Menu.addButton("Return","MaleHairMenu",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Customisation Menu
+--Hair
+--Colour
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function HairColour3()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Hair Colour             Page 3 of 10"
+    ClearMenu()
+    Menu.addButton(hair.hcolour_name3[Menu.buttonCount+1], "savecolour", hair.hcolour3[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name3[Menu.buttonCount+1], "savecolour", hair.hcolour3[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name3[Menu.buttonCount+1], "savecolour", hair.hcolour3[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name3[Menu.buttonCount+1], "savecolour", hair.hcolour3[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name3[Menu.buttonCount+1], "savecolour", hair.hcolour3[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name3[Menu.buttonCount+1], "savecolour", hair.hcolour3[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name3[Menu.buttonCount+1], "savecolour", hair.hcolour3[Menu.buttonCount+1])
+    Menu.addButton("Next Page","HairColour4",nil)
+    Menu.addButton("Previous Page","HairColour2",nil)
+    Menu.addButton("Return","MaleHairMenu",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Customisation Menu
+--Hair
+--Colour
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function HairColour4()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Hair Colour             Page 4 of 10"
+    ClearMenu()
+    Menu.addButton(hair.hcolour_name4[Menu.buttonCount+1], "savecolour", hair.hcolour4[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name4[Menu.buttonCount+1], "savecolour", hair.hcolour4[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name4[Menu.buttonCount+1], "savecolour", hair.hcolour4[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name4[Menu.buttonCount+1], "savecolour", hair.hcolour4[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name4[Menu.buttonCount+1], "savecolour", hair.hcolour4[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name4[Menu.buttonCount+1], "savecolour", hair.hcolour4[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name4[Menu.buttonCount+1], "savecolour", hair.hcolour4[Menu.buttonCount+1])
+    Menu.addButton("Next Page","HairColour5",nil)
+    Menu.addButton("Previous Page","HairColour4",nil)
+    Menu.addButton("Return","MaleHairMenu",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Customisation Menu
+--Hair
+--Colour
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function HairColour5()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Hair Colour             Page 5 of 10"
+    ClearMenu()
+    Menu.addButton(hair.hcolour_name5[Menu.buttonCount+1], "savecolour", hair.hcolour5[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name5[Menu.buttonCount+1], "savecolour", hair.hcolour5[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name5[Menu.buttonCount+1], "savecolour", hair.hcolour5[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name5[Menu.buttonCount+1], "savecolour", hair.hcolour5[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name5[Menu.buttonCount+1], "savecolour", hair.hcolour5[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name5[Menu.buttonCount+1], "savecolour", hair.hcolour5[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name5[Menu.buttonCount+1], "savecolour", hair.hcolour5[Menu.buttonCount+1])
+    Menu.addButton("Next Page","HairColour6",nil)
+    Menu.addButton("Previous Page","HairColour4",nil)
+    Menu.addButton("Return","MaleHairMenu",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Customisation Menu
+--Hair
+--Colour
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function HairColour6()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Hair Colour             Page 6 of 10"
+    ClearMenu()
+    Menu.addButton(hair.hcolour_name6[Menu.buttonCount+1], "savecolour", hair.hcolour6[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name6[Menu.buttonCount+1], "savecolour", hair.hcolour6[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name6[Menu.buttonCount+1], "savecolour", hair.hcolour6[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name6[Menu.buttonCount+1], "savecolour", hair.hcolour6[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name6[Menu.buttonCount+1], "savecolour", hair.hcolour6[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name6[Menu.buttonCount+1], "savecolour", hair.hcolour6[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name6[Menu.buttonCount+1], "savecolour", hair.hcolour6[Menu.buttonCount+1])
+    Menu.addButton("Next Page","HairColour7",nil)
+    Menu.addButton("Previous Page","HairColour5",nil)
+    Menu.addButton("Return","MaleHairMenu",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Customisation Menu
+--Hair
+--Colour
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function HairColour7()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Hair Colour             Page 7 of 10"
+    ClearMenu()
+    Menu.addButton(hair.hcolour_name7[Menu.buttonCount+1], "savecolour", hair.hcolour7[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name7[Menu.buttonCount+1], "savecolour", hair.hcolour7[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name7[Menu.buttonCount+1], "savecolour", hair.hcolour7[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name7[Menu.buttonCount+1], "savecolour", hair.hcolour7[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name7[Menu.buttonCount+1], "savecolour", hair.hcolour7[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name7[Menu.buttonCount+1], "savecolour", hair.hcolour7[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name7[Menu.buttonCount+1], "savecolour", hair.hcolour7[Menu.buttonCount+1])
+    Menu.addButton("Next Page","HairColour8",nil)
+    Menu.addButton("Previous Page","HairColour6",nil)
+    Menu.addButton("Return","MaleHairMenu",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Customisation Menu
+--Hair
+--Colour
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function HairColour8()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Hair Colour             Page 8 of 10"
+    ClearMenu()
+    Menu.addButton(hair.hcolour_name8[Menu.buttonCount+1], "savecolour", hair.hcolour8[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name8[Menu.buttonCount+1], "savecolour", hair.hcolour8[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name8[Menu.buttonCount+1], "savecolour", hair.hcolour8[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name8[Menu.buttonCount+1], "savecolour", hair.hcolour8[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name8[Menu.buttonCount+1], "savecolour", hair.hcolour8[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name8[Menu.buttonCount+1], "savecolour", hair.hcolour8[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name8[Menu.buttonCount+1], "savecolour", hair.hcolour8[Menu.buttonCount+1])
+    Menu.addButton("Next Page","HairColour9",nil)
+    Menu.addButton("Previous Page","HairColour7",nil)
+    Menu.addButton("Return","MaleHairMenu",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Customisation Menu
+--Hair
+--Colour
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function HairColour9()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Hair Colour             Page 9 of 10"
+    ClearMenu()
+    Menu.addButton(hair.hcolour_name9[Menu.buttonCount+1], "savecolour", hair.hcolour9[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name9[Menu.buttonCount+1], "savecolour", hair.hcolour9[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name9[Menu.buttonCount+1], "savecolour", hair.hcolour9[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name9[Menu.buttonCount+1], "savecolour", hair.hcolour9[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name9[Menu.buttonCount+1], "savecolour", hair.hcolour9[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name9[Menu.buttonCount+1], "savecolour", hair.hcolour9[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name9[Menu.buttonCount+1], "savecolour", hair.hcolour9[Menu.buttonCount+1])
+    Menu.addButton("Next Page","HairColour10",nil)
+    Menu.addButton("Previous Page","HairColour8",nil)
+    Menu.addButton("Return","MaleHairMenu",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Customisation Menu
+--Hair
+--Colour
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function HairColour10()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Hair Colour             Page 10 of 10"
+    ClearMenu()
+    Menu.addButton(hair.hcolour_name10[Menu.buttonCount+1], "savecolour", hair.hcolour10[Menu.buttonCount+1])
+    Menu.addButton("Next Page","HairColour",nil)
+    Menu.addButton("Previous Page","HairColour9",nil)
+    Menu.addButton("Return","MaleHairMenu",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Customisation Menu
+--Hair
+--Colour
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function fHairColour()
+    hair_help = true
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Hair Colour             Page 1 of 10"
+    ClearMenu()
+    Menu.addButton(hair.hcolour_name[Menu.buttonCount+1], "savecolour", hair.hcolour[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name[Menu.buttonCount+1], "savecolour", hair.hcolour[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name[Menu.buttonCount+1], "savecolour", hair.hcolour[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name[Menu.buttonCount+1], "savecolour", hair.hcolour[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name[Menu.buttonCount+1], "savecolour", hair.hcolour[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name[Menu.buttonCount+1], "savecolour", hair.hcolour[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name[Menu.buttonCount+1], "savecolour", hair.hcolour[Menu.buttonCount+1])
+    Menu.addButton("Next Page","fHairColour2",nil)
+    Menu.addButton("Previous Page","fHairColour10",nil)
     Menu.addButton("Return","FemaleHairMenu",nil)
 end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -3405,18 +3610,174 @@ end
 --Hair
 --Colour
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function HairColour()
-	DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
-    options.menu_subtitle = "Hair Colour"
+function fHairColour2()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Hair Colour             Page 2 of 10"
     ClearMenu()
-    Menu.addButton(hair.hcolour_name[Menu.buttonCount+1], "savecolour", hair.hcolour[Menu.buttonCount+1])
-    Menu.addButton(hair.hcolour_name[Menu.buttonCount+1], "savecolour", hair.hcolour[Menu.buttonCount+1])
-    Menu.addButton(hair.hcolour_name[Menu.buttonCount+1], "savecolour", hair.hcolour[Menu.buttonCount+1])
-    Menu.addButton(hair.hcolour_name[Menu.buttonCount+1], "savecolour", hair.hcolour[Menu.buttonCount+1])
-    Menu.addButton(hair.hcolour_name[Menu.buttonCount+1], "savecolour", hair.hcolour[Menu.buttonCount+1])
-    Menu.addButton(hair.hcolour_name[Menu.buttonCount+1], "savecolour", hair.hcolour[Menu.buttonCount+1])
-    Menu.addButton(hair.hcolour_name[Menu.buttonCount+1], "savecolour", hair.hcolour[Menu.buttonCount+1])
-    Menu.addButton("Return","MaleHairMenu",nil)
+    Menu.addButton(hair.hcolour_name2[Menu.buttonCount+1], "savecolour", hair.hcolour2[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name2[Menu.buttonCount+1], "savecolour", hair.hcolour2[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name2[Menu.buttonCount+1], "savecolour", hair.hcolour2[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name2[Menu.buttonCount+1], "savecolour", hair.hcolour2[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name2[Menu.buttonCount+1], "savecolour", hair.hcolour2[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name2[Menu.buttonCount+1], "savecolour", hair.hcolour2[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name2[Menu.buttonCount+1], "savecolour", hair.hcolour2[Menu.buttonCount+1])
+    Menu.addButton("Next Page","fHairColour3",nil)
+    Menu.addButton("Previous Page","fHairColour",nil)
+    Menu.addButton("Return","FemaleHairMenu",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Customisation Menu
+--Hair
+--Colour
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function fHairColour3()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Hair Colour             Page 3 of 10"
+    ClearMenu()
+    Menu.addButton(hair.hcolour_name3[Menu.buttonCount+1], "savecolour", hair.hcolour3[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name3[Menu.buttonCount+1], "savecolour", hair.hcolour3[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name3[Menu.buttonCount+1], "savecolour", hair.hcolour3[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name3[Menu.buttonCount+1], "savecolour", hair.hcolour3[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name3[Menu.buttonCount+1], "savecolour", hair.hcolour3[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name3[Menu.buttonCount+1], "savecolour", hair.hcolour3[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name3[Menu.buttonCount+1], "savecolour", hair.hcolour3[Menu.buttonCount+1])
+    Menu.addButton("Next Page","fHairColour4",nil)
+    Menu.addButton("Previous Page","fHairColour2",nil)
+    Menu.addButton("Return","FemaleHairMenu",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Customisation Menu
+--Hair
+--Colour
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function fHairColour4()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Hair Colour             Page 4 of 10"
+    ClearMenu()
+    Menu.addButton(hair.hcolour_name4[Menu.buttonCount+1], "savecolour", hair.hcolour4[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name4[Menu.buttonCount+1], "savecolour", hair.hcolour4[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name4[Menu.buttonCount+1], "savecolour", hair.hcolour4[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name4[Menu.buttonCount+1], "savecolour", hair.hcolour4[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name4[Menu.buttonCount+1], "savecolour", hair.hcolour4[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name4[Menu.buttonCount+1], "savecolour", hair.hcolour4[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name4[Menu.buttonCount+1], "savecolour", hair.hcolour4[Menu.buttonCount+1])
+    Menu.addButton("Next Page","fHairColour5",nil)
+    Menu.addButton("Previous Page","fHairColour4",nil)
+    Menu.addButton("Return","FemaleHairMenu",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Customisation Menu
+--Hair
+--Colour
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function fHairColour5()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Hair Colour             Page 5 of 10"
+    ClearMenu()
+    Menu.addButton(hair.hcolour_name5[Menu.buttonCount+1], "savecolour", hair.hcolour5[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name5[Menu.buttonCount+1], "savecolour", hair.hcolour5[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name5[Menu.buttonCount+1], "savecolour", hair.hcolour5[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name5[Menu.buttonCount+1], "savecolour", hair.hcolour5[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name5[Menu.buttonCount+1], "savecolour", hair.hcolour5[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name5[Menu.buttonCount+1], "savecolour", hair.hcolour5[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name5[Menu.buttonCount+1], "savecolour", hair.hcolour5[Menu.buttonCount+1])
+    Menu.addButton("Next Page","fHairColour6",nil)
+    Menu.addButton("Previous Page","fHairColour4",nil)
+    Menu.addButton("Return","FemaleHairMenu",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Customisation Menu
+--Hair
+--Colour
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function fHairColour6()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Hair Colour             Page 6 of 10"
+    ClearMenu()
+    Menu.addButton(hair.hcolour_name6[Menu.buttonCount+1], "savecolour", hair.hcolour6[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name6[Menu.buttonCount+1], "savecolour", hair.hcolour6[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name6[Menu.buttonCount+1], "savecolour", hair.hcolour6[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name6[Menu.buttonCount+1], "savecolour", hair.hcolour6[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name6[Menu.buttonCount+1], "savecolour", hair.hcolour6[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name6[Menu.buttonCount+1], "savecolour", hair.hcolour6[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name6[Menu.buttonCount+1], "savecolour", hair.hcolour6[Menu.buttonCount+1])
+    Menu.addButton("Next Page","fHairColour7",nil)
+    Menu.addButton("Previous Page","fHairColour5",nil)
+    Menu.addButton("Return","FemaleHairMenu",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Customisation Menu
+--Hair
+--Colour
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function fHairColour7()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Hair Colour             Page 7 of 10"
+    ClearMenu()
+    Menu.addButton(hair.hcolour_name7[Menu.buttonCount+1], "savecolour", hair.hcolour7[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name7[Menu.buttonCount+1], "savecolour", hair.hcolour7[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name7[Menu.buttonCount+1], "savecolour", hair.hcolour7[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name7[Menu.buttonCount+1], "savecolour", hair.hcolour7[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name7[Menu.buttonCount+1], "savecolour", hair.hcolour7[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name7[Menu.buttonCount+1], "savecolour", hair.hcolour7[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name7[Menu.buttonCount+1], "savecolour", hair.hcolour7[Menu.buttonCount+1])
+    Menu.addButton("Next Page","fHairColour8",nil)
+    Menu.addButton("Previous Page","fHairColour6",nil)
+    Menu.addButton("Return","FemaleHairMenu",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Customisation Menu
+--Hair
+--Colour
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function fHairColour8()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Hair Colour             Page 8 of 10"
+    ClearMenu()
+    Menu.addButton(hair.hcolour_name8[Menu.buttonCount+1], "savecolour", hair.hcolour8[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name8[Menu.buttonCount+1], "savecolour", hair.hcolour8[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name8[Menu.buttonCount+1], "savecolour", hair.hcolour8[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name8[Menu.buttonCount+1], "savecolour", hair.hcolour8[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name8[Menu.buttonCount+1], "savecolour", hair.hcolour8[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name8[Menu.buttonCount+1], "savecolour", hair.hcolour8[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name8[Menu.buttonCount+1], "savecolour", hair.hcolour8[Menu.buttonCount+1])
+    Menu.addButton("Next Page","fHairColour9",nil)
+    Menu.addButton("Previous Page","fHairColour7",nil)
+    Menu.addButton("Return","FemaleHairMenu",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Customisation Menu
+--Hair
+--Colour
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function fHairColour9()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Hair Colour             Page 9 of 10"
+    ClearMenu()
+    Menu.addButton(hair.hcolour_name9[Menu.buttonCount+1], "savecolour", hair.hcolour9[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name9[Menu.buttonCount+1], "savecolour", hair.hcolour9[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name9[Menu.buttonCount+1], "savecolour", hair.hcolour9[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name9[Menu.buttonCount+1], "savecolour", hair.hcolour9[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name9[Menu.buttonCount+1], "savecolour", hair.hcolour9[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name9[Menu.buttonCount+1], "savecolour", hair.hcolour9[Menu.buttonCount+1])
+    Menu.addButton(hair.hcolour_name9[Menu.buttonCount+1], "savecolour", hair.hcolour9[Menu.buttonCount+1])
+    Menu.addButton("Next Page","fHairColour10",nil)
+    Menu.addButton("Previous Page","fHairColour8",nil)
+    Menu.addButton("Return","FemaleHairMenu",nil)
+end
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--Customisation Menu
+--Hair
+--Colour
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function fHairColour10()
+    DisplayHelpText("Use ~INPUT_CELLPHONE_UP~ ~INPUT_CELLPHONE_DOWN~ to ~y~move~w~ and ~y~Enter~w~ to ~r~select")
+    options.menu_subtitle = "Hair Colour             Page 10 of 10"
+    ClearMenu()
+    Menu.addButton(hair.hcolour_name10[Menu.buttonCount+1], "savecolour", hair.hcolour10[Menu.buttonCount+1])
+    Menu.addButton("Next Page","fHairColour",nil)
+    Menu.addButton("Previous Page","fHairColour9",nil)
+    Menu.addButton("Return","FemaleHairMenu",nil)
 end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Customisation Menu
@@ -3440,7 +3801,9 @@ end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function savecolour(hcolour) --Sets mask texture in database
     c_options.hcolour = hcolour
-    SetPedComponentVariation(GetPlayerPed(-1), 2, tonumber(c_options.hair), tonumber(c_options.hcolour), 0)
+    --SetPedComponentVariation(GetPlayerPed(-1), 2, tonumber(c_options.hair), tonumber(c_options.hcolour), 2)
+    SetPedHairColor(GetPlayerPed(-1), tonumber(c_options.hcolour), tonumber(c_options.hcolour))
+    --SetPedComponentVariation(GetPlayerPed(-1), 2, tonumber(c_options.hair), tonumber(c_options.hcolour), 0)
 end
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --Customisation Menu           Page 1/12
@@ -5846,7 +6209,7 @@ Citizen.CreateThread(function()
         local pos = GetEntityCoords(GetPlayerPed(-1), true)
         for k,v in ipairs(emplacement) do
             if(Vdist(pos.x, pos.y, pos.z, v.x, v.y, v.z) < 15.0)then
-                DrawMarker(1, v.x, v.y, v.z - 1, 0, 0, 0, 0, 0, 0, 1.0001, 1.0001, 1.5001, 1555, 0, 0,165, 0, 0, 0,0)
+                DrawMarker(1, v.x, v.y, v.z - 1, 0, 0, 0, 0, 0, 0, 2.0001, 1.0001, 1.5001, 1555, 0, 0,165, 0, 0, 0,0)
                 if(Vdist(pos.x, pos.y, pos.z, v.x, v.y, v.z) < 1.0)then
                     if (incircle == false) then
                         DisplayHelpText("Press ~INPUT_CONTEXT~ to customise your character.")
@@ -5895,12 +6258,13 @@ Citizen.CreateThread(function()
                         end
                     end
                     Menu.renderGUI(options) -- Draw menu on each tick if Menu.hidden = false
-                elseif(Vdist(pos.x, pos.y, pos.z, v.x, v.y, v.z) > 1.0)then
+                elseif(Vdist(pos.x, pos.y, pos.z, v.x, v.y, v.z) > 5.0)then
                     incircle = false
                     shirt_help = false
                     model_info = false
                     texture_help = false
                     mp_check_message = false
+                    hair_help = false
                 end
             end
         end
@@ -5944,6 +6308,15 @@ Citizen.CreateThread(function()
         if texture_help then
             drawTxt(0.66, 1.45, 1.0,1.0,0.4, "~r~NOTICE~w~: (~g~Number~w~) = the number of ~g~Textures ~w~available.", 255, 255, 255, 255)
             drawTxt(0.66, 1.42, 1.0,1.0,0.4, "~r~NOTICE~w~: ~g~T~w~ = ~g~Textures ~w~and the numbers are textures that work with the clothing.", 255, 255, 255, 255)
+        end
+        Citizen.Wait(0)
+    end
+end)
+Citizen.CreateThread(function()
+    while true do
+        if hair_help then
+            drawTxt(0.66, 1.45, 1.0,1.0,0.4, "~r~NOTICE~w~: [ ~r~- ~w~] is dark and [ ~g~+ ~w~] is light.", 255, 255, 255, 255)
+            drawTxt(0.66, 1.42, 1.0,1.0,0.4, "~r~NOTICE~w~: Hair colours go from Dark to Light.", 255, 255, 255, 255)
         end
         Citizen.Wait(0)
     end

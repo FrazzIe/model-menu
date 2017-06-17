@@ -1,17 +1,17 @@
-# model-menu
-https://forum.fivem.net/t/release-model-menu-v1/19999
-## Model-Menu V2.5
+## Model-Menu V2.6
 A Menu that:
 
-* Opens when a player first spawns
 * Can be opened and closed using E in a clothing shop
 * lets you choose from every working model
 * lets you fully customise models
-* Loads/Saves models to a database(MySQL)
+* Loads/Saves models to a database(MySQL Async)
+
+I only spent roughly 12 hours on this so message me if there are bugs
+
 
 ----------
 ## Changelog
-
+[quote]
 **Version 1.1**
 
 * Added an Accessories menu
@@ -62,30 +62,24 @@ A Menu that:
 * Fixed remove Earrings button not actually saving
 * Added 63 different hair colours [pic1](https://prnt.sc/fct3j7) [pic2](https://prnt.sc/fct3ny) [pic3](https://prnt.sc/fct3qx) [pic4](https://prnt.sc/fct3zx)
 
-----------
+**Version 2.6**
 
-If using Cops FiveM then change line 48 in the Cops FiveM _client.lua_ and line 124 in the _vestpolice.lua_ from
-```
-	TriggerServerEvent("skin_customization:SpawnPlayer")
-```
-to
-```
-    TriggerServerEvent("mm:spawn")
-```
-
+* Menu Optimisations thanks to @Lico he modified the GUI.lua
+* No more "Return" to go back or "Next/Previous Page"
+* Optimised the queries and it now uses MySQL Async
+[/quote]
 ----------
 
 
-If players spawn as mp_m_freemode_01 or mp_f_freemode_01 by default in your server then change line 27 in the sql.sql to
-```
-  `mpmodel` int(11) NOT NULL DEFAULT '1'
-```
-----------
 
+[Github](https://github.com/FrazzIe/model-menu)
 [Download](https://github.com/FrazzIe/model-menu/archive/master.zip)
 
 ----------
-Screentshots
-https://image.prntscr.com/image/40adc5f7334644219c42eb6b34ee4b33.png
-https://image.prntscr.com/image/25fa485f7ca44a36938f9034e80c7ef9.png
-https://image.prntscr.com/image/d3ae53e701e14b75959306a10f8bf4f8.png
+**Screentshots**
+https://prnt.sc/fkq6fp
+https://prnt.sc/fkq6fp
+https://prnt.sc/fkq6ok
+
+----------
+**If you have modified it and it stopped working, don't come to me for help.**

@@ -45,7 +45,7 @@ end)
 RegisterServerEvent("mm:spawn2")
 AddEventHandler("mm:spawn2", function()
 	TriggerEvent("es:getPlayerFromId", source, function(target)
-		MySQL.Async.fetchAll("SELECT * FROM modelmenu WHERE identifier = '@name'", {['@name'] = target.identifier}, function (result)
+		MySQL.Async.fetchAll("SELECT * FROM modelmenu WHERE identifier = @name", {['@name'] = target.identifier}, function (result)
 			local user = {
         	hair = result[1].hair,
         	hcolour = result[1].hair_colour,

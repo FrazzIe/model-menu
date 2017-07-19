@@ -15,7 +15,7 @@ A Menu that:
 **Version 2.7**
 
 * Working on FXServer
-* You know have to press F to save your ped model (so less calls to the database)
+* You now have to press F to save your ped model (so less calls to the database)
 * Can't remember what else.. -.-
 
 **Screentshots**

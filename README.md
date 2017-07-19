@@ -18,7 +18,7 @@ A Menu that:
 * You now have to press F to save your ped model (so less calls to the database)
 * Can't remember what else.. -.-
 
-**Screentshots**
+**Screenshots**
 https://prnt.sc/fkq6fp
 https://prnt.sc/fkq6fp
 https://prnt.sc/fkq6ok

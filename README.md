@@ -4,7 +4,7 @@ A Menu that:
 * Can be opened and closed using E in a clothing shop
 * lets you choose from every working model
 * lets you fully customise models
-* Loads/Saves models to a textfile
+* Loads/Saves models to a MySQL database
 
 
 

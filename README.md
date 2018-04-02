@@ -12,6 +12,10 @@ A Menu that:
 ----------
 ## Latest change(s)
 
+**My Fork**
+* REQUIRES MySQL-Async and EssentialMode Extended
+* Added MySQL support instead of .txt file
+
 **Version 3**
 * Rebuilt from the ground up
 * New UI Modified version of @MrDaGree 's menu

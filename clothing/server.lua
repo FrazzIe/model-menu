@@ -25,6 +25,7 @@ AddEventHandler("clothes:firstspawn",function()
 					overlays = {drawables = {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1}, opacity = {1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0}, colours = {{colourType = 0, colour = 0},{colourType = 0, colour = 0},{colourType = 0, colour = 0},{colourType = 0, colour = 0},{colourType = 0, colour = 0},{colourType = 0, colour = 0},{colourType = 0, colour = 0},{colourType = 0, colour = 0},{colourType = 0, colour = 0},{colourType = 0, colour = 0},{colourType = 0, colour = 0},{colourType = 0, colour = 0},{colourType = 0, colour = 0}}},
 				}
 				TriggerClientEvent("clothes:spawn", _source, models[identifier])
+				TriggerEvent("clothes:save", _source, models[identifier])
 			else
 				models[identifier] = json.decode(skin)
 				TriggerClientEvent("clothes:spawn", _source, json.decode(skin))

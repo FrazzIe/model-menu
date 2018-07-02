@@ -154,7 +154,7 @@ function accessories(title)
             end
         end)
         Menu.addOption("clothing_accessories", function()
-            if(Menu.ScrollBarInt("Textures", textureScroller, GetNumberOfPedTextureVariations(GetPlayerPed(-1), componentScroller, subComponentScroller), function(cb)  textureScroller = cb end)) then
+            if(Menu.ScrollBarInt("Textures", textureScroller, GetNumberOfPedPropTextureVariations(GetPlayerPed(-1), componentScroller, subComponentScroller), function(cb)  textureScroller = cb end)) then
                 SetPedPropIndex(GetPlayerPed(-1), componentScroller, subComponentScroller, textureScroller, false)
             end
         end)

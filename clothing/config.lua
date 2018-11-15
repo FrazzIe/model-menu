@@ -58,6 +58,13 @@ local clothing_shops = {
     {name="Clothing Store", id=73, x=-1192.81, y=-768.24, z=17.31},
     {name="Clothing Store", id=73, x=4.25, y=6512.88, z=31.87},
     {name="Clothing Store", id=73, x=425.471, y=-806.164, z=29.4911},
+    {name="Clothing Store", id=73, x=-161.19, y=-303.28, z=39.73},
+    {name="Clothing Store", id=73, x=1190.19, y=2713.57, z=38.22},
+	{name="Clothing Store", id=73, x=617.52, y=2761.59, z=42.09},
+	{name="Clothing Store", id=73, x=-1108.28, y=2708.7, z=19.11},
+	{name="Clothing Store", id=73, x=-3173.24, y=1046.57, z=20.86},
+	{name="Clothing Store", id=73, x=72.47, y=-1398.88, z=29.38},
+	{name="Clothing Store", id=73, x=-1452.85, y=-237.52, z=49.81},
 }
 incircle = false
 Citizen.CreateThread(function()
